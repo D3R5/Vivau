@@ -1,0 +1,179 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Muebles VIVAU — Rustic warm design system.
+ * Wood tones, cream, beige, dark brown, subtle black.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-wood: var(--wood);
+  --color-wood-dark: var(--wood-dark);
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Warm cream background, deep espresso text */
+  --background: oklch(0.975 0.012 80);
+  --foreground: oklch(0.22 0.02 40);
+
+  --card: oklch(0.99 0.008 80);
+  --card-foreground: oklch(0.22 0.02 40);
+
+  --popover: oklch(0.99 0.008 80);
+  --popover-foreground: oklch(0.22 0.02 40);
+
+  /* Dark walnut brown */
+  --primary: oklch(0.32 0.04 45);
+  --primary-foreground: oklch(0.97 0.012 80);
+
+  /* Warm sand */
+  --secondary: oklch(0.92 0.02 75);
+  --secondary-foreground: oklch(0.28 0.03 45);
+
+  --muted: oklch(0.93 0.015 75);
+  --muted-foreground: oklch(0.48 0.02 55);
+
+  /* Wood/caramel accent */
+  --accent: oklch(0.66 0.11 55);
+  --accent-foreground: oklch(0.99 0.005 80);
+
+  --destructive: oklch(0.52 0.19 28);
+  --destructive-foreground: oklch(0.98 0.003 80);
+
+  --border: oklch(0.88 0.015 75);
+  --input: oklch(0.9 0.015 75);
+  --ring: oklch(0.66 0.11 55);
+
+  --wood: oklch(0.62 0.1 55);
+  --wood-dark: oklch(0.38 0.06 45);
+  --cream: oklch(0.97 0.012 80);
+  --sand: oklch(0.86 0.03 75);
+
+  --chart-1: oklch(0.62 0.1 55);
+  --chart-2: oklch(0.5 0.07 45);
+  --chart-3: oklch(0.75 0.08 80);
+  --chart-4: oklch(0.4 0.05 60);
+  --chart-5: oklch(0.32 0.04 45);
+
+  --sidebar: oklch(0.96 0.012 80);
+  --sidebar-foreground: oklch(0.28 0.03 45);
+  --sidebar-primary: oklch(0.32 0.04 45);
+  --sidebar-primary-foreground: oklch(0.98 0.005 80);
+  --sidebar-accent: oklch(0.92 0.02 75);
+  --sidebar-accent-foreground: oklch(0.28 0.03 45);
+  --sidebar-border: oklch(0.88 0.015 75);
+  --sidebar-ring: oklch(0.66 0.11 55);
+}
+
+.dark {
+  --background: oklch(0.18 0.015 45);
+  --foreground: oklch(0.95 0.01 80);
+
+  --card: oklch(0.22 0.02 45);
+  --card-foreground: oklch(0.95 0.01 80);
+
+  --popover: oklch(0.22 0.02 45);
+  --popover-foreground: oklch(0.95 0.01 80);
+
+  --primary: oklch(0.88 0.03 75);
+  --primary-foreground: oklch(0.22 0.02 45);
+
+  --secondary: oklch(0.28 0.025 45);
+  --secondary-foreground: oklch(0.95 0.01 80);
+
+  --muted: oklch(0.28 0.025 45);
+  --muted-foreground: oklch(0.7 0.02 70);
+
+  --accent: oklch(0.66 0.11 55);
+  --accent-foreground: oklch(0.18 0.015 45);
+
+  --destructive: oklch(0.6 0.2 28);
+  --destructive-foreground: oklch(0.98 0.003 80);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.66 0.11 55);
+
+  --wood: oklch(0.66 0.11 55);
+  --wood-dark: oklch(0.48 0.07 45);
+  --cream: oklch(0.28 0.025 45);
+  --sand: oklch(0.32 0.03 55);
+
+  --sidebar: oklch(0.22 0.02 45);
+  --sidebar-foreground: oklch(0.95 0.01 80);
+  --sidebar-primary: oklch(0.66 0.11 55);
+  --sidebar-primary-foreground: oklch(0.18 0.015 45);
+  --sidebar-accent: oklch(0.28 0.025 45);
+  --sidebar-accent-foreground: oklch(0.95 0.01 80);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.66 0.11 55);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    font-feature-settings: "ss01", "ss02";
+    letter-spacing: -0.01em;
+  }
+}
