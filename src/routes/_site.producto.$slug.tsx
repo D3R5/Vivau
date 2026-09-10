@@ -1,5 +1,5 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Minus, Plus, ShoppingBag, Truck, ShieldCheck } from "lucide-react";
 import { discountPct, effectivePrice, formatMXN, categories } from "@/lib/mock-data";
 import { useCart, useProducts } from "@/lib/store";
@@ -31,6 +31,9 @@ function ProductDetailPage() {
   const [qty, setQty] = useState(1);
   const [activeImg, setActiveImg] = useState(product.image);
 
+  useEffect(() => {
+    setActiveImg(product.image);
+  }, [product.id]);
   const pct = discountPct(product);
   const price = effectivePrice(product);
   const category = categories.find((c) => c.slug === product.categorySlug);
@@ -47,9 +50,13 @@ function ProductDetailPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       <nav className="mb-6 flex items-center gap-1.5 text-xs text-muted-foreground">
-        <Link to="/" className="hover:text-foreground">Inicio</Link>
+        <Link to="/" className="hover:text-foreground">
+          Inicio
+        </Link>
         <span>/</span>
-        <Link to="/catalogo" className="hover:text-foreground">Catálogo</Link>
+        <Link to="/catalogo" className="hover:text-foreground">
+          Catálogo
+        </Link>
         <span>/</span>
         <span className="text-foreground">{product.name}</span>
       </nav>
