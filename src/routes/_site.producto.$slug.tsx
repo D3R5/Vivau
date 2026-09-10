@@ -26,14 +26,69 @@ function ProductDetailPage() {
   const products = useProducts((s) => s.products);
   const product = products.find((p) => p.slug === slug);
   if (!product) throw notFound();
-
   const add = useCart((s) => s.add);
   const [qty, setQty] = useState(1);
-  const [activeImg, setActiveImg] = useState(product.image);
 
-  useEffect(() => {
-    setActiveImg(product.image);
-  }, [product.id]);
+  //Zoom
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [blockZoom, setBlockZoom] = useState(false);
+
+  // 🖼️ Slider state
+  const images = [product.image, ...(product.gallery || []).filter((img) => img !== product.image)];
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // 👆 Swipe / drag state
+  const [startX, setStartX] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  // 📱 Touch (móvil)
+  const handleTouchStart = (e) => {
+    setStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX;
+
+    if (startX - endX > 50) nextImage();
+    else if (endX - startX > 50) prevImage();
+    else setIsZoomed(true); // 👉 tap = zoom
+  };
+
+  // 🖱️ Mouse drag (desktop)
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.clientX);
+  };
+
+  const handleMouseUp = (e) => {
+    if (e.target.closest("button")) return; // 🔥 ESTE ES EL FIX REAL
+
+    if (blockZoomRef.current) {
+      blockZoomRef.current = false;
+      return;
+    }
+
+    const endX = e.clientX;
+    const diff = startX - endX;
+
+    if (Math.abs(diff) < 5) {
+      setIsZoomed(true);
+    } else if (diff > 50) {
+      nextImage();
+    } else if (diff < -50) {
+      prevImage();
+    }
+
+    setIsDragging(false);
+  };
   const pct = discountPct(product);
   const price = effectivePrice(product);
   const category = categories.find((c) => c.slug === product.categorySlug);
@@ -63,20 +118,63 @@ function ProductDetailPage() {
 
       <div className="grid gap-12 lg:grid-cols-2">
         <div>
-          <div className="aspect-square overflow-hidden rounded-md bg-secondary">
-            <img src={activeImg} alt={product.name} className="h-full w-full object-cover" />
+          <div
+            className="relative aspect-square overflow-hidden rounded-md bg-secondary select-none"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={() => setIsDragging(false)}
+          >
+            <img
+              src={images[currentIndex]}
+              alt={product.name}
+              className="h-full w-full object-cover pointer-events-none cursor-zoom-in"
+            />
+
+            {images.length > 1 && (
+              <>
+                {/* ← */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation(); // 🔥 evita zoom
+                    setBlockZoom(true); // 🔥 bloquea zoom
+
+                    prevImage();
+                  }}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60"
+                >
+                  ‹
+                </button>
+
+                {/* → */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation(); // 🔥 evita zoom
+                    setBlockZoom(true); // 🔥 bloquea zoom
+
+                    nextImage();
+                  }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60"
+                >
+                  ›
+                </button>
+              </>
+            )}
           </div>
-          {product.gallery.length > 1 && (
+
+          {/* Miniaturas */}
+          {images.length > 1 && (
             <div className="mt-4 grid grid-cols-4 gap-3">
-              {product.gallery.map((g, i) => (
+              {images.map((img, i) => (
                 <button
                   key={i}
-                  onClick={() => setActiveImg(g)}
+                  onClick={() => setCurrentIndex(i)}
                   className={`aspect-square overflow-hidden rounded-md border-2 ${
-                    activeImg === g ? "border-primary" : "border-transparent"
+                    currentIndex === i ? "border-primary" : "border-transparent"
                   }`}
                 >
-                  <img src={g} alt="" className="h-full w-full object-cover" />
+                  <img src={img} alt="" className="h-full w-full object-cover" />
                 </button>
               ))}
             </div>
@@ -179,6 +277,18 @@ function ProductDetailPage() {
             ))}
           </div>
         </section>
+      )}
+      {isZoomed && (
+        <div
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center animate-fade-in"
+          onClick={() => setIsZoomed(false)}
+        >
+          <img
+            src={images[currentIndex]}
+            alt={product.name}
+            className="max-h-[90vh] max-w-[90vw] object-contain cursor-zoom-out transition-transform duration-300 scale-100"
+          />
+        </div>
       )}
     </div>
   );
