@@ -1,5 +1,5 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Minus, Plus, ShoppingBag, Truck, ShieldCheck } from "lucide-react";
 import { discountPct, effectivePrice, formatMXN, categories } from "@/lib/mock-data";
 import { useCart, useProducts } from "@/lib/store";
