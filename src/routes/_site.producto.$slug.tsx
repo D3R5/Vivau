@@ -59,7 +59,9 @@ function ProductDetailPage() {
 
     if (startX - endX > 50) nextImage();
     else if (endX - startX > 50) prevImage();
-    else setIsZoomed(true); // 👉 tap = zoom
+    if (Math.abs(startX - endX) < 10) {
+      setIsZoomed(true);
+    }
   };
 
   // 🖱️ Mouse drag (desktop)
@@ -67,9 +69,9 @@ function ProductDetailPage() {
     setIsDragging(true);
     setStartX(e.clientX);
   };
-
+  const blockZoomRef = useRef(false);
   const handleMouseUp = (e) => {
-    if (e.target.closest("button")) return; // 🔥 ESTE ES EL FIX REAL
+    if (e.target.closest("button")) return;
 
     if (blockZoomRef.current) {
       blockZoomRef.current = false;
@@ -138,7 +140,7 @@ function ProductDetailPage() {
                 <button
                   onClick={(e) => {
                     e.stopPropagation(); // 🔥 evita zoom
-                    setBlockZoom(true); // 🔥 bloquea zoom
+                    blockZoomRef.current = true;
 
                     prevImage();
                   }}
@@ -151,7 +153,7 @@ function ProductDetailPage() {
                 <button
                   onClick={(e) => {
                     e.stopPropagation(); // 🔥 evita zoom
-                    setBlockZoom(true); // 🔥 bloquea zoom
+                    blockZoomRef.current = true;
 
                     nextImage();
                   }}
