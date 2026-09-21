@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { X } from "lucide-react";
 
-export default function WhatsAppWidget() {
+export function WhatsAppWidget() {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
