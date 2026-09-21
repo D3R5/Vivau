@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { X } from "lucide-react";
@@ -99,7 +97,7 @@ export default function WhatsAppWidget() {
       </button>
 
       {/* Animación */}
-      <style jsx>{`
+      <style>{`
         @keyframes shake {
           0% {
             transform: rotate(0deg);
