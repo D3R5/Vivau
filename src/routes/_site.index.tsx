@@ -162,23 +162,55 @@ sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible"
         </div>
       </section>
 
-      {/* Beneficios */}
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-4">
-          {benefits.map((b) => (
-            <div key={b.title} className="flex flex-col gap-3">
+    {/* Beneficios */}
+<section className="bg-primary/95 text-primary-foreground">
+  <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+    <h2 className="font-display text-3xl md:text-4xl">Nuestros beneficios</h2>
+
+    {/* MOBILE: horizontal scroller sin scrollbar y con snap center */}
+    <div className="mt-10 md:hidden">
+      <div
+        className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory px-4 hide-scrollbar"
+        aria-label="Beneficios (desliza horizontalmente)"
+      >
+        {benefits.map((b) => (
+          /* Cada wrapper es snap-center para quedar perfectamente centrado */
+          <div
+            key={b.title}
+            className="snap-center flex-shrink-0 w-[84%] sm:w-[60%]"
+          >
+            {/* inner card centrada dentro del snap area */}
+            <div className="mx-auto max-w-[520px] flex flex-col gap-3 rounded-2xl bg-primary/5 p-5">
               <div className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-primary">
                 <b.icon className="h-5 w-5" />
               </div>
+
               <h3 className="font-display text-lg">{b.title}</h3>
-              <p className="text-sm text-muted-foreground">{b.text}</p>
+              <p className="text-sm text-primary-foreground/80">{b.text}</p>
             </div>
-          ))}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    {/* DESKTOP / TABLET: grid original */}
+    <div className="hidden md:grid mt-10 gap-8 md:grid-cols-4">
+      {benefits.map((b) => (
+        <div key={b.title} className="flex flex-col gap-3">
+          <div className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-primary">
+            <b.icon className="h-5 w-5" />
+          </div>
+
+          <h3 className="font-display text-lg">{b.title}</h3>
+          <p className="text-sm text-primary-foreground/80">{b.text}</p>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Testimonios */}
-      <section className="bg-primary/95 text-primary-foreground">
+      {/* <section className="bg-primary/95 text-primary-foreground">
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <h2 className="font-display text-3xl md:text-4xl">Lo que dicen nuestros clientes</h2>
           <div className="mt-10 grid gap-8 md:grid-cols-3">
@@ -199,7 +231,7 @@ sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible"
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
     </>
   );
 }
