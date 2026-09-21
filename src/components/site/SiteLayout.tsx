@@ -1,6 +1,7 @@
 import { Outlet } from "@tanstack/react-router";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import WhatsAppWidget from "@/extras/WhatsAppWidget";
 
 export function SiteLayout() {
   return (
@@ -10,6 +11,7 @@ export function SiteLayout() {
         <Outlet />
       </main>
       <Footer />
+      <WhatsAppWidget />
     </div>
   );
 }

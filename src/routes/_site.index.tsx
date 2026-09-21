@@ -11,10 +11,26 @@ export const Route = createFileRoute("/_site/")({
 });
 
 const benefits = [
-  { icon: ShieldCheck, title: "Pagos seguros", text: "Transacciones cifradas y protegidas." },
-  { icon: Truck, title: "Envío rápido", text: "Entrega a todo Chile en 5–10 días hábiles." },
-  { icon: TreePine, title: "Materiales nobles", text: "Maderas macizas certificadas." },
-  { icon: Headphones, title: "Atención cercana", text: "Asesoría personal antes y después." },
+  {
+    icon: Headphones,
+    title: "Compra asistida",
+    text: "Te ayudamos a elegir el producto ideal según tu espacio y estilo.",
+  },
+  {
+    icon: Truck,
+    title: "Envío a coordinar",
+    text: "Coordinamos despacho contigo según tu ubicación y disponibilidad.",
+  },
+  {
+    icon: TreePine,
+    title: "Materiales de calidad",
+    text: "Trabajamos con maderas seleccionadas y terminaciones duraderas.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Compra con confianza",
+    text: "Te contactamos antes de confirmar cualquier pedido o pago.",
+  },
 ];
 
 const testimonials = [
