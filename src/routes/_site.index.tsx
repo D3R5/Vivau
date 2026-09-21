@@ -162,54 +162,54 @@ sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible"
         </div>
       </section>
 
-    {/* Beneficios */}
-<section className="bg-primary/95 text-primary-foreground">
-  <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-    <h2 className="font-display text-3xl md:text-4xl">Nuestros beneficios</h2>
+      {/* Beneficios */}
+      <section className="bg-primary/95 text-primary-foreground">
+        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+          <h2 className="font-display text-3xl md:text-4xl">Nuestros beneficios</h2>
 
-    {/* MOBILE: cada snap ocupa todo el ancho del viewport (sin peek) */}
-    <div className="mt-10 md:hidden">
-      <div
-        className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory px-0 hide-scrollbar"
-        aria-label="Beneficios (desliza horizontalmente)"
-        style={{ WebkitOverflowScrolling: "touch" }}
-      >
-        {benefits.map((b) => (
-          /* cada snap-area ocupa TODO el ancho: w-full */
-          <div
-            key={b.title}
-            className="snap-center flex-shrink-0 w-full"
-            style={{ scrollSnapAlign: "center", scrollSnapStop: "always" }}
-          >
-            {/* card interior centrado y con max-width para dejar márgenes laterales */}
-            <div className="mx-auto max-w-[520px] px-6 flex flex-col gap-3 rounded-2xl bg-primary/5 p-6">
-              <div className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-primary">
-                <b.icon className="h-5 w-5" />
-              </div>
+          {/* MOBILE: cada snap ocupa todo el ancho del viewport (sin peek) */}
+          <div className="mt-10 md:hidden">
+            <div
+              className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory px-0 hide-scrollbar"
+              aria-label="Beneficios (desliza horizontalmente)"
+              style={{ WebkitOverflowScrolling: "touch" }}
+            >
+              {benefits.map((b) => (
+                /* cada snap-area ocupa TODO el ancho: w-full */
+                <div
+                  key={b.title}
+                  className="snap-center flex-shrink-0 w-full"
+                  style={{ scrollSnapAlign: "center", scrollSnapStop: "always" }}
+                >
+                  {/* card interior centrado y con max-width para dejar márgenes laterales */}
+                  <div className="mx-auto max-w-[520px] px-6 flex flex-col gap-3 rounded-2xl bg-primary/5 p-6">
+                    <div className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-primary">
+                      <b.icon className="h-5 w-5" />
+                    </div>
 
-              <h3 className="font-display text-lg">{b.title}</h3>
-              <p className="text-sm text-primary-foreground/80">{b.text}</p>
+                    <h3 className="font-display text-lg">{b.title}</h3>
+                    <p className="text-sm text-primary-foreground/80">{b.text}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ))}
-      </div>
-    </div>
 
-    {/* DESKTOP / TABLET: grid original */}
-    <div className="hidden md:grid mt-10 gap-8 md:grid-cols-4">
-      {benefits.map((b) => (
-        <div key={b.title} className="flex flex-col gap-3">
-          <div className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-primary">
-            <b.icon className="h-5 w-5" />
+          {/* DESKTOP / TABLET: grid original */}
+          <div className="hidden md:grid mt-10 gap-8 md:grid-cols-4">
+            {benefits.map((b) => (
+              <div key={b.title} className="flex flex-col gap-3">
+                <div className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-primary">
+                  <b.icon className="h-5 w-5" />
+                </div>
+
+                <h3 className="font-display text-lg">{b.title}</h3>
+                <p className="text-sm text-primary-foreground/80">{b.text}</p>
+              </div>
+            ))}
           </div>
-
-          <h3 className="font-display text-lg">{b.title}</h3>
-          <p className="text-sm text-primary-foreground/80">{b.text}</p>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Testimonios */}
       {/* <section className="bg-primary/95 text-primary-foreground">
