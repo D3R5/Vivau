@@ -91,12 +91,11 @@ export default function WhatsAppWidget() {
       {/* Botón flotante */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-5 right-5 z-50 flex items-center justify-center rounded-full bg-[#25D366] p-4 text-white shadow-lg hover:scale-110 transition"
+        className="fixed bottom-5 right-5 z-[9999] flex items-center justify-center rounded-full bg-[#25D366] p-4 text-white shadow-lg active:scale-95"
       >
         <FaWhatsapp size={26} />
 
-        {/* Aura/pulse */}
-        <span className="absolute inset-0 rounded-full bg-[#25D366] opacity-30 animate-ping"></span>
+        <span className="pointer-events-none absolute inset-0 rounded-full bg-[#25D366] opacity-30 animate-ping"></span>
       </button>
 
       {/* Animación */}
