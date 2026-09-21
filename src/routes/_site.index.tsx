@@ -167,20 +167,22 @@ sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible"
   <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
     <h2 className="font-display text-3xl md:text-4xl">Nuestros beneficios</h2>
 
-    {/* MOBILE: horizontal scroller sin scrollbar y con snap center */}
+    {/* MOBILE: cada snap ocupa todo el ancho del viewport (sin peek) */}
     <div className="mt-10 md:hidden">
       <div
-        className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory px-4 hide-scrollbar"
+        className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory px-0 hide-scrollbar"
         aria-label="Beneficios (desliza horizontalmente)"
+        style={{ WebkitOverflowScrolling: "touch" }}
       >
         {benefits.map((b) => (
-          /* Cada wrapper es snap-center para quedar perfectamente centrado */
+          /* cada snap-area ocupa TODO el ancho: w-full */
           <div
             key={b.title}
-            className="snap-center flex-shrink-0 w-[84%] sm:w-[60%]"
+            className="snap-center flex-shrink-0 w-full"
+            style={{ scrollSnapAlign: "center", scrollSnapStop: "always" }}
           >
-            {/* inner card centrada dentro del snap area */}
-            <div className="mx-auto max-w-[520px] flex flex-col gap-3 rounded-2xl bg-primary/5 p-5">
+            {/* card interior centrado y con max-width para dejar márgenes laterales */}
+            <div className="mx-auto max-w-[520px] px-6 flex flex-col gap-3 rounded-2xl bg-primary/5 p-6">
               <div className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-primary">
                 <b.icon className="h-5 w-5" />
               </div>
