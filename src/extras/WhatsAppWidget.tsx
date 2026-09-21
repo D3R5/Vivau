@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 import { X } from "lucide-react";
@@ -6,10 +7,9 @@ export function WhatsAppWidget() {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const phone = "5692004501";
+  const phone = "56920995401";
 
   const createLink = (text: string) => `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
-
   const faqs = [
     {
       question: "¿Tienen stock disponible?",
