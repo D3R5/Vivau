@@ -35,36 +35,31 @@ export const categories: Category[] = [
   {
     slug: "sala",
     name: "Sala",
-    image:
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1200&q=80",
+    image: images.sala.cover,
     description: "Sofás, mesas de centro y muebles para tu sala de estar.",
   },
   {
     slug: "comedor",
     name: "Comedor",
-    image:
-      "https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1200&q=80",
+    image: images.comedor.cover,
     description: "Mesas y sillas artesanales para reuniones inolvidables.",
   },
   {
     slug: "recamara",
     name: "Recámara",
-    image:
-      "https://images.unsplash.com/photo-1616627052149-22c4f8a6316e?auto=format&fit=crop&w=1200&q=80",
+    image: images.recamara.cover,
     description: "Camas, burós y armarios con acabados en madera natural.",
   },
   {
     slug: "oficina",
     name: "Oficina",
-    image:
-      "https://images.unsplash.com/photo-1593642532400-2682810df593?auto=format&fit=crop&w=1200&q=80",
+    image: images.oficina.cover,
     description: "Escritorios y libreros para tu espacio de trabajo.",
   },
   {
     slug: "exterior",
     name: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80",
+    image: images.exterior.cover,
     description: "Muebles resistentes para jardín, patio y terraza.",
   },
 ];

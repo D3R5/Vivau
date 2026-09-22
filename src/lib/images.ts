@@ -22,6 +22,17 @@ import banca3 from "../assets/banca-2/1.jfif";
 import mesita1 from "../assets/mesita-esquinera/1.png";
 import mesita2 from "../assets/mesita-esquinera/2.png";
 
+import comedor from "../assets/comedor/comedor.jfif";
+
+import oficina from "../assets/oficina/oficina.jfif";
+
+import recamara from "../assets/recamara/recamara.jfif";
+
+import sala from "../assets/sala/sala.jfif";
+
+import exterior from "../assets/exterior/exterior.jfif";
+
+
 export const images = {
   mesaCentro: {
     cover: mesa1,
@@ -58,5 +69,25 @@ export const images = {
   mesitaEsquinera: {
     cover: mesita1,
     gallery: [mesita1, mesita2],
+  },
+  comedor: {
+    cover: comedor,
+    gallery: [comedor],
+  },
+  oficina: {
+    cover: oficina,
+    gallery: [oficina],
+  },
+  recamara: {
+    cover: recamara,
+    gallery: [recamara],
+  },
+  sala: {
+    cover: sala,
+    gallery: [sala],
+  },
+  exterior: {
+    cover: exterior,
+    gallery: [exterior],
   },
 };
