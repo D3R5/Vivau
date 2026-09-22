@@ -7,7 +7,7 @@ export function WhatsAppWidget() {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const phone = "56920995401";
+  const phone = "56987111409";
 
   const createLink = (text: string) => `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
   const faqs = [
