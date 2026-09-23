@@ -2,17 +2,13 @@ import { Link } from "@tanstack/react-router";
 import { ShoppingBag, Menu, Search } from "lucide-react";
 import { useCart } from "@/lib/store";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const nav = [
-  { to: "/", label: "Inicio" },
-  { to: "/catalogo", label: "Catálogo" },
-  { to: "/catalogo", label: "Ofertas", search: { ofertas: true } },
-  { to: "/contactoemail", label: "Contacto" },
+  { to: "/", label: "INICIO" },
+  { to: "/catalogo", label: "CATÁLOGO" },
+  { to: "/catalogo", label: "OFERTAS", search: { ofertas: true } },
+  { to: "/contactoemail", label: "CONTACTO" },
   //{ to: "/admin", label: "Admin" }, //
 ];
 
@@ -32,14 +28,21 @@ export function Header() {
 
         <nav className="hidden items-center gap-8 md:flex">
           {nav.map((n, i) => (
-           <Link
-  key={i}
-  to={n.to}
-  search={n.search}
-  className="text-sm text-foreground/80 transition-colors hover:text-foreground"
-  activeProps={{ className: "text-foreground font-medium" }}
->
-  {n.label}
+            <Link
+              key={i}
+              to={n.to}
+              search={n.search}
+              className="group relative px-2 py-1 text-sm font-medium text-foreground/70 transition-all duration-300 hover:text-foreground"
+              activeProps={{
+                className: "text-foreground font-semibold",
+              }}
+            >
+              <span className="inline-block transition-all duration-300 group-hover:-translate-y-1 group-hover:scale-105">
+                {n.label}
+              </span>
+
+              {/* sombra sutil abajo */}
+              <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-primary transition-all duration-300 group-hover:w-6" />
             </Link>
           ))}
         </nav>
