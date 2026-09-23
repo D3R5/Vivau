@@ -256,14 +256,14 @@ function ProductDetailPage() {
               <Truck className="mt-0.5 h-5 w-5 text-primary" />
               <div>
                 <p className="font-medium">Envío a domicilio</p>
-                <p className="text-xs text-muted-foreground">5–10 días hábiles</p>
+                <p className="text-xs text-muted-foreground">A coordinar con comprador</p>
               </div>
             </div>
             <div className="flex items-start gap-3 rounded-md bg-secondary/50 p-4">
               <ShieldCheck className="mt-0.5 h-5 w-5 text-primary" />
               <div>
                 <p className="font-medium">Garantía 6 Meses</p>
-                <p className="text-xs text-muted-foreground">En estructura de madera</p>
+                <p className="text-xs text-muted-foreground">En detalles de estructura</p>
               </div>
             </div>
           </div>

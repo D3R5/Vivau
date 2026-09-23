@@ -283,6 +283,31 @@ export const products: Product[] = [
     createdAt: "2025-05-01",
     updatedAt: "2025-06-15",
   },
+  {
+    id: "p-011",
+    name: "Espejo de Raulí 50x90 cm",
+    slug: "espejo-rauli-50x90",
+    categorySlug: "decoracion",
+    brand: "VIVAU Artesanos",
+    description:
+      "Espejo de muro fabricado en madera de raulí de alta calidad, diseñado para aportar elegancia y calidez a cualquier espacio. Su formato de 50 x 90 cm lo hace ideal para dormitorios, livings, pasillos o recibidores, ampliando visualmente los ambientes y mejorando la iluminación natural. El marco de raulí, con su veta natural y acabado fino, entrega un estilo moderno y atemporal que se adapta a distintos tipos de decoración. Una pieza funcional y decorativa que realza tu hogar con un toque artesanal.",
+    shortDescription:
+      "Espejo de muro en madera de raulí 50x90 cm, ideal para ampliar y decorar tus espacios con estilo.",
+    image: images.espejo.cover,
+    gallery: images.espejo.gallery,
+    price: 52990,
+    // salePrice: 47990,
+    stock: 3,
+    sku: "ER-011",
+    material: "Marco de madera de raulí",
+    dimensions: "50 × 90 cm",
+    weight: "--",
+    featured: true,
+    active: true,
+    tags: ["espejo", "rauli", "decoracion", "muro"],
+    createdAt: "2025-05-10",
+    updatedAt: "2025-06-20",
+  },
 ];
 
 export const formatCL = (n: number) =>

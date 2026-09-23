@@ -17,7 +17,8 @@ import arrimo3 from "../assets/arrimo-3/arrimo_3.jfif";
 import banca1 from "../assets/banca-1/1.png";
 import banca2 from "../assets/banca-1/2.jfif";
 
-import banca3 from "../assets/banca-2/1.jfif";
+import banca3 from "../assets/banca-2/1.png";
+import banca4 from "../assets/banca-2/2.jfif";
 
 import mesita1 from "../assets/mesita-esquinera/1.png";
 import mesita2 from "../assets/mesita-esquinera/2.png";
@@ -31,6 +32,9 @@ import recamara from "../assets/recamara/recamara.jfif";
 import sala from "../assets/sala/sala.jfif";
 
 import exterior from "../assets/exterior/exterior.jfif";
+
+import espejo from "../assets/espejo/1.png";
+import espejo2 from "../assets/espejo/2.png";
 
 
 export const images = {
@@ -64,11 +68,15 @@ export const images = {
   },
   banca2: {
     cover: banca3,
-    gallery: [banca3],
+    gallery: [banca3, banca4],
   },
   mesitaEsquinera: {
     cover: mesita1,
     gallery: [mesita1, mesita2],
+  },
+  espejo: {
+    cover: espejo,
+    gallery: [espejo, espejo2],
   },
   comedor: {
     cover: comedor,
