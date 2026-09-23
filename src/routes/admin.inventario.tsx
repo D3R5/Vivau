@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { AlertTriangle, Save } from "lucide-react";
 import { useProducts } from "@/lib/store";
-import { categories, effectivePrice, formatMXN } from "@/lib/mock-data";
+import { categories, effectivePrice, formatCL } from "@/lib/mock-data";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -78,7 +78,7 @@ function AdminInventory() {
                 </TableCell>
                 <TableCell className="text-muted-foreground">{p.sku}</TableCell>
                 <TableCell>{categories.find((c) => c.slug === p.categorySlug)?.name}</TableCell>
-                <TableCell>{formatMXN(effectivePrice(p))}</TableCell>
+                <TableCell>{formatCL(effectivePrice(p))}</TableCell>
                 <TableCell>
                   {p.stock === 0 ? (
                     <Badge variant="destructive">Agotado</Badge>
@@ -140,7 +140,7 @@ function AdminInventory() {
         </div>
         <div className="rounded-md border border-border bg-background p-5">
           <p className="text-sm text-muted-foreground">Valor de inventario</p>
-          <p className="mt-2 font-display text-2xl">{formatMXN(totalValue)}</p>
+          <p className="mt-2 font-display text-2xl">{formatCL(totalValue)}</p>
         </div>
         <div className="rounded-md border border-accent/40 bg-accent/5 p-5">
           <p className="flex items-center gap-1.5 text-sm text-accent">

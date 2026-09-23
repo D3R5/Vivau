@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useCart, useProducts } from "@/lib/store";
-import { effectivePrice, formatMXN } from "@/lib/mock-data";
+import { effectivePrice, formatCL } from "@/lib/mock-data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -126,22 +126,22 @@ function CheckoutPage() {
                   <p className="font-medium leading-tight">{l.p.name}</p>
                   <p className="text-xs text-muted-foreground">Cantidad: {l.quantity}</p>
                 </div>
-                <span className="text-sm">{formatMXN(effectivePrice(l.p) * l.quantity)}</span>
+                <span className="text-sm">{formatCL(effectivePrice(l.p) * l.quantity)}</span>
               </li>
             ))}
           </ul>
           <dl className="mt-4 space-y-2 border-t border-border pt-4 text-sm">
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Subtotal</dt>
-              <dd>{formatMXN(subtotal)}</dd>
+              <dd>{formatCL(subtotal)}</dd>
             </div>
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Envío</dt>
-              <dd>{shipping === 0 ? "Gratis" : formatMXN(shipping)}</dd>
+              <dd>{shipping === 0 ? "Gratis" : formatCL(shipping)}</dd>
             </div>
             <div className="flex justify-between border-t border-border pt-2 font-display text-lg">
               <dt>Total</dt>
-              <dd>{formatMXN(total)}</dd>
+              <dd>{formatCL(total)}</dd>
             </div>
           </dl>
           <Button type="submit" size="lg" className="mt-6 w-full" disabled={lines.length === 0}>

@@ -285,10 +285,10 @@ export const products: Product[] = [
   },
 ];
 
-export const formatMXN = (n: number) =>
-  new Intl.NumberFormat("es-MX", {
+export const formatCL = (n: number) =>
+  new Intl.NumberFormat("es-CL", {
     style: "currency",
-    currency: "MXN",
+    currency: "CLP",
     maximumFractionDigits: 0,
   }).format(n);
 

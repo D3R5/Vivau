@@ -1,7 +1,7 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { Minus, Plus, ShoppingBag, Truck, ShieldCheck } from "lucide-react";
-import { discountPct, effectivePrice, formatMXN, categories } from "@/lib/mock-data";
+import { discountPct, effectivePrice, formatCL, categories } from "@/lib/mock-data";
 import { useCart, useProducts } from "@/lib/store";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/site/ProductCard";
@@ -201,10 +201,10 @@ function ProductDetailPage() {
           </p>
 
           <div className="mt-6 flex items-baseline gap-3">
-            <span className="font-display text-3xl">{formatMXN(price)}</span>
+            <span className="font-display text-3xl">{formatCL(price)}</span>
             {product.salePrice && (
               <span className="text-lg text-muted-foreground line-through">
-                {formatMXN(product.price)}
+                {formatCL(product.price)}
               </span>
             )}
           </div>

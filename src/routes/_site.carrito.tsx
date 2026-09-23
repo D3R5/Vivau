@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus, X, ShoppingBag } from "lucide-react";
 import { useCart, useProducts } from "@/lib/store";
-import { effectivePrice, formatMXN } from "@/lib/mock-data";
+import { effectivePrice, formatCL } from "@/lib/mock-data";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_site/carrito")({
@@ -95,7 +95,7 @@ function CartPage() {
                     </button>
                   </div>
                   <span className="font-medium">
-                    {formatMXN(effectivePrice(l.product) * l.quantity)}
+                    {formatCL(effectivePrice(l.product) * l.quantity)}
                   </span>
                 </div>
               </div>
@@ -108,21 +108,21 @@ function CartPage() {
           <dl className="mt-6 space-y-3 text-sm">
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Subtotal</dt>
-              <dd>{formatMXN(subtotal)}</dd>
+              <dd>{formatCL(subtotal)}</dd>
             </div>
             {savings > 0 && (
               <div className="flex justify-between text-accent">
                 <dt>Ahorros</dt>
-                <dd>−{formatMXN(savings)}</dd>
+                <dd>−{formatCL(savings)}</dd>
               </div>
             )}
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Envío estimado</dt>
-              <dd>{shipping === 0 ? "Gratis" : formatMXN(shipping)}</dd>
+              <dd>{shipping === 0 ? "Gratis" : formatCL(shipping)}</dd>
             </div>
             <div className="mt-2 flex justify-between border-t border-border pt-3 font-display text-lg">
               <dt>Total</dt>
-              <dd>{formatMXN(total)}</dd>
+              <dd>{formatCL(total)}</dd>
             </div>
           </dl>
           <Link to="/checkout">

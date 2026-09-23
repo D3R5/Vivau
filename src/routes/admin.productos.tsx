@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Pencil, Plus, Trash2, Search, X, Upload } from "lucide-react";
 import { useProducts } from "@/lib/store";
-import { type Product, categories, effectivePrice, formatMXN } from "@/lib/mock-data";
+import { type Product, categories, effectivePrice, formatCL } from "@/lib/mock-data";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -142,10 +142,10 @@ function AdminProducts() {
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-col">
-                    <span>{formatMXN(effectivePrice(p))}</span>
+                    <span>{formatCL(effectivePrice(p))}</span>
                     {p.salePrice && (
                       <span className="text-xs text-muted-foreground line-through">
-                        {formatMXN(p.price)}
+                        {formatCL(p.price)}
                       </span>
                     )}
                   </div>

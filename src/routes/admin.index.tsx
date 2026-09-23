@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Package, DollarSign, AlertTriangle, TrendingUp } from "lucide-react";
 import { useProducts } from "@/lib/store";
-import { effectivePrice, formatMXN } from "@/lib/mock-data";
+import { effectivePrice, formatCL } from "@/lib/mock-data";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -36,7 +36,7 @@ function AdminDashboard() {
     { label: "Productos totales", value: products.length, icon: Package },
     {
       label: "Valor de inventario",
-      value: formatMXN(totalInventoryValue),
+      value: formatCL(totalInventoryValue),
       icon: DollarSign,
     },
     { label: "Stock bajo", value: lowStock.length, icon: AlertTriangle },
@@ -113,7 +113,7 @@ function AdminDashboard() {
                     <span className="font-medium">{p.name}</span>
                   </TableCell>
                   <TableCell className="text-muted-foreground">{p.sku}</TableCell>
-                  <TableCell>{formatMXN(effectivePrice(p))}</TableCell>
+                  <TableCell>{formatCL(effectivePrice(p))}</TableCell>
                   <TableCell>{p.stock}</TableCell>
                   <TableCell>
                     {p.active ? (

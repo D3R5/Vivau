@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Eye } from "lucide-react";
-import { type Product, discountPct, effectivePrice, formatMXN } from "@/lib/mock-data";
+import { type Product, discountPct, effectivePrice, formatCL } from "@/lib/mock-data";
 import { Button } from "@/components/ui/button";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -46,10 +46,10 @@ export function ProductCard({ product }: { product: Product }) {
         </Link>
         <p className="text-xs text-muted-foreground">{product.shortDescription}</p>
         <div className="mt-1.5 flex items-baseline gap-2">
-          <span className="text-base font-medium">{formatMXN(price)}</span>
+          <span className="text-base font-medium">{formatCL(price)}</span>
           {product.salePrice && (
             <span className="text-xs text-muted-foreground line-through">
-              {formatMXN(product.price)}
+              {formatCL(product.price)}
             </span>
           )}
         </div>

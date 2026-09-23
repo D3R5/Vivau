@@ -70,7 +70,9 @@ function CatalogPage() {
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value);
-                navigate({ search: (s: CatalogSearch) => ({ ...s, q: e.target.value || undefined, page: 1 }) });
+                navigate({
+                  search: (s: CatalogSearch) => ({ ...s, q: e.target.value || undefined, page: 1 }),
+                });
               }}
               className="pl-9"
             />
@@ -106,7 +108,10 @@ function CatalogPage() {
             <div className="mb-3 flex items-center justify-between text-sm">
               <h3 className="font-semibold">Precio máximo</h3>
               <span className="text-muted-foreground">
-                ${priceRange[0].toLocaleString("en-US", { minimumFractionDigits: 0 })}
+                $
+                {new Intl.NumberFormat("es-CL", { minimumFractionDigits: 0 }).format(
+                  priceRange[0],
+                )}{" "}
               </span>
             </div>
             <Slider
@@ -124,7 +129,13 @@ function CatalogPage() {
                 type="checkbox"
                 checked={!!ofertas}
                 onChange={(e) =>
-                  navigate({ search: (s: CatalogSearch) => ({ ...s, ofertas: e.target.checked || undefined, page: 1 }) })
+                  navigate({
+                    search: (s: CatalogSearch) => ({
+                      ...s,
+                      ofertas: e.target.checked || undefined,
+                      page: 1,
+                    }),
+                  })
                 }
                 className="h-4 w-4 accent-primary"
               />
@@ -137,7 +148,9 @@ function CatalogPage() {
           {paged.length === 0 ? (
             <div className="grid place-items-center rounded-md border border-dashed border-border py-24 text-center">
               <p className="font-display text-xl">No encontramos piezas con estos filtros.</p>
-              <p className="mt-2 text-sm text-muted-foreground">Ajusta los filtros o borra la búsqueda.</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Ajusta los filtros o borra la búsqueda.
+              </p>
             </div>
           ) : (
             <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
