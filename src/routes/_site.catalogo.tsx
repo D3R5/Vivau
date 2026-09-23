@@ -106,7 +106,7 @@ function CatalogPage() {
             <div className="mb-3 flex items-center justify-between text-sm">
               <h3 className="font-semibold">Precio máximo</h3>
               <span className="text-muted-foreground">
-                ${priceRange[0].toLocaleString("es-MX")}
+                ${priceRange[0].toLocaleString("en-US", { minimumFractionDigits: 0 })}
               </span>
             </div>
             <Slider
