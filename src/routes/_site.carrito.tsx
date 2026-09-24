@@ -125,7 +125,7 @@ function CartPage() {
             )}
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Envío estimado</dt>
-              <dd>{shipping === 0 ? "Gratis" : formatCL(shipping)}</dd>
+              <dd>{shipping === 0 ? "A coordinar" : formatCL(shipping)}</dd>
             </div>
             <div className="mt-2 flex justify-between border-t border-border pt-3 font-display text-lg">
               <dt>Total</dt>
