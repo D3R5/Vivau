@@ -80,22 +80,53 @@ function CatalogPage() {
 
           <div>
             <h3 className="mb-3 text-sm font-semibold">Categorías</h3>
-            <ul className="space-y-1.5 text-sm">
+
+            {/* MOBILE: SELECT */}
+            <div className="lg:hidden">
+              <select
+                value={categoria ?? ""}
+                onChange={(e) =>
+                  navigate({
+                    search: (s: CatalogSearch) => ({
+                      ...s,
+                      categoria: e.target.value || undefined,
+                      page: 1,
+                    }),
+                  })
+                }
+                className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm"
+              >
+                <option value="">Todas</option>
+                {categories.map((c) => (
+                  <option key={c.slug} value={c.slug}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* DESKTOP: LISTA */}
+            <ul className="hidden space-y-1.5 text-sm lg:block">
               <li>
                 <Link
                   to="/catalogo"
                   search={{ ofertas }}
-                  className={`block rounded px-2 py-1.5 ${!categoria ? "bg-secondary" : "hover:bg-secondary/60"}`}
+                  className={`block rounded px-2 py-1.5 ${
+                    !categoria ? "bg-secondary" : "hover:bg-secondary/60"
+                  }`}
                 >
                   Todas
                 </Link>
               </li>
+
               {categories.map((c) => (
                 <li key={c.slug}>
                   <Link
                     to="/catalogo"
                     search={{ categoria: c.slug, ofertas }}
-                    className={`block rounded px-2 py-1.5 ${categoria === c.slug ? "bg-secondary" : "hover:bg-secondary/60"}`}
+                    className={`block rounded px-2 py-1.5 ${
+                      categoria === c.slug ? "bg-secondary" : "hover:bg-secondary/60"
+                    }`}
                   >
                     {c.name}
                   </Link>
