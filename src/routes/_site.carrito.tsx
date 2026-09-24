@@ -17,11 +17,14 @@ function CartPage() {
       const product = products.find((p) => p.id === i.productId);
       return product ? { product, quantity: i.quantity } : null;
     })
-    .filter((x): x is { product: NonNullable<ReturnType<typeof products.find>>; quantity: number } => !!x);
+    .filter(
+      (x): x is { product: NonNullable<ReturnType<typeof products.find>>; quantity: number } => !!x,
+    );
 
   const subtotal = lines.reduce((sum, l) => sum + effectivePrice(l.product) * l.quantity, 0);
   const savings = lines.reduce(
-    (sum, l) => sum + (l.product.salePrice ? (l.product.price - l.product.salePrice) * l.quantity : 0),
+    (sum, l) =>
+      sum + (l.product.salePrice ? (l.product.price - l.product.salePrice) * l.quantity : 0),
     0,
   );
   const shipping = subtotal > 15000 || subtotal === 0 ? 0 : 899;
@@ -54,7 +57,11 @@ function CartPage() {
                 params={{ slug: l.product.slug }}
                 className="h-28 w-28 shrink-0 overflow-hidden rounded-md bg-secondary"
               >
-                <img src={l.product.image} alt={l.product.name} className="h-full w-full object-cover" />
+                <img
+                  src={l.product.image}
+                  alt={l.product.name}
+                  className="h-full w-full object-cover"
+                />
               </Link>
               <div className="flex flex-1 flex-col justify-between">
                 <div className="flex justify-between gap-4">
@@ -125,13 +132,33 @@ function CartPage() {
               <dd>{formatCL(total)}</dd>
             </div>
           </dl>
-          <Link to="/checkout">
+          {/* <Link to="/checkout">
             <Button size="lg" className="mt-6 w-full">
               Ir a pagar
             </Button>
-          </Link>
+          </Link> */}
+          <Button
+            size="lg"
+            className="mt-6 w-full"
+            onClick={() => {
+              const message = lines
+                .map(
+                  (l) =>
+                    `• ${l.product.name} x${l.quantity} = ${formatCL(
+                      effectivePrice(l.product) * l.quantity,
+                    )}`,
+                )
+                .join("\n");
+
+              const fullMessage = `Hola, quiero cotizar:\n\n${message}\n\nTotal estimado: ${formatCL(total)}`;
+
+              window.location.href = `/contactoemail?message=${encodeURIComponent(fullMessage)}`;
+            }}
+          >
+            Solicitar cotización
+          </Button>
           <p className="mt-3 text-center text-xs text-muted-foreground">
-            Envío gratis en compras mayores a $15,000
+            Envío por coordinar a todo Chile. <br />
           </p>
         </aside>
       </div>
