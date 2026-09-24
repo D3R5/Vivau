@@ -69,7 +69,7 @@ function ContactoPageEmail() {
             defaultValue={search.message || "" || ""}
             placeholder="Tu mensaje..."
             required
-            rows={4}
+            rows={19}
             className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
           />
 

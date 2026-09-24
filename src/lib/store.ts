@@ -19,24 +19,38 @@ export const useCart = create<CartState>()(
       items: [],
       add: (id, qty = 1) =>
         set((s) => {
+          const product = useProducts.getState().products.find((p) => p.id === id);
+          if (!product) return s;
+
           const existing = s.items.find((i) => i.productId === id);
+          const currentQty = existing?.quantity ?? 0;
+
+          const nextQty = Math.min(currentQty + qty, product.stock);
+
           if (existing) {
             return {
-              items: s.items.map((i) =>
-                i.productId === id ? { ...i, quantity: i.quantity + qty } : i,
-              ),
+              items: s.items.map((i) => (i.productId === id ? { ...i, quantity: nextQty } : i)),
             };
           }
-          return { items: [...s.items, { productId: id, quantity: qty }] };
+
+          return {
+            items: [...s.items, { productId: id, quantity: Math.min(qty, product.stock) }],
+          };
         }),
-      remove: (id) =>
-        set((s) => ({ items: s.items.filter((i) => i.productId !== id) })),
+      remove: (id) => set((s) => ({ items: s.items.filter((i) => i.productId !== id) })),
       setQty: (id, qty) =>
-        set((s) => ({
-          items: s.items
-            .map((i) => (i.productId === id ? { ...i, quantity: qty } : i))
-            .filter((i) => i.quantity > 0),
-        })),
+        set((s) => {
+          const product = useProducts.getState().products.find((p) => p.id === id);
+          if (!product) return s;
+
+          const safeQty = Math.max(0, Math.min(qty, product.stock));
+
+          return {
+            items: s.items
+              .map((i) => (i.productId === id ? { ...i, quantity: safeQty } : i))
+              .filter((i) => i.quantity > 0),
+          };
+        }),
       clear: () => set({ items: [] }),
     }),
     { name: "vivau-cart" },
@@ -63,8 +77,7 @@ export const useProducts = create<ProductsState>()(
           next[idx] = p;
           return { products: next };
         }),
-      remove: (id) =>
-        set((s) => ({ products: s.products.filter((p) => p.id !== id) })),
+      remove: (id) => set((s) => ({ products: s.products.filter((p) => p.id !== id) })),
       updateStock: (id, stock) =>
         set((s) => ({
           products: s.products.map((p) =>

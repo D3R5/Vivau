@@ -20,7 +20,8 @@ function NotFoundComponent() {
         <h1 className="text-7xl font-bold text-foreground">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-foreground">Página no encontrada</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          La página que estás buscando no existe o ha sido movida. Vuelve a la página de inicio para continuar navegando.
+          La página que estás buscando no existe o ha sido movida. Vuelve a la página de inicio para
+          continuar navegando.
         </p>
         <div className="mt-6">
           <Link
@@ -49,7 +50,8 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
           Esta página no se cargó
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Algo salió mal en nuestro lado. Puedes intentar actualizar la página o volver a la página de inicio.
+          Algo salió mal en nuestro lado. Puedes intentar actualizar la página o volver a la página
+          de inicio.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -130,7 +132,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-right" offset={60} />{" "}
     </QueryClientProvider>
   );
 }

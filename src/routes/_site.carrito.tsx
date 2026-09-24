@@ -74,6 +74,7 @@ function CartPage() {
                       {l.product.name}
                     </Link>
                     <p className="text-xs text-muted-foreground">{l.product.material}</p>
+                    <p className="text-xs text-muted-foreground">SKU: {l.product.sku}</p>
                   </div>
                   <button
                     onClick={() => remove(l.product.id)}
@@ -95,8 +96,8 @@ function CartPage() {
                     <span className="w-8 text-center text-sm">{l.quantity}</span>
                     <button
                       onClick={() => setQty(l.product.id, l.quantity + 1)}
-                      className="grid h-9 w-9 place-items-center hover:bg-secondary"
-                      aria-label="Aumentar"
+                      disabled={l.quantity >= l.product.stock}
+                      className="grid h-9 w-9 place-items-center hover:bg-secondary disabled:opacity-40"
                     >
                       <Plus className="h-3.5 w-3.5" />
                     </button>
@@ -144,13 +145,14 @@ function CartPage() {
               const message = lines
                 .map(
                   (l) =>
-                    `• ${l.product.name} x${l.quantity} = ${formatCL(
-                      effectivePrice(l.product) * l.quantity,
-                    )}`,
+                    `• ${l.product.name}
+  SKU: ${l.product.sku}
+  Cantidad: ${l.quantity}
+  Subtotal: ${formatCL(effectivePrice(l.product) * l.quantity)}.-`,
                 )
-                .join("\n");
+                .join("\n\n");
 
-              const fullMessage = `Hola, quiero cotizar:\n\n${message}\n\nTotal estimado: ${formatCL(total)}\n\nTú dirección:`;
+              const fullMessage = `Hola, quiero cotizar:\n\n${message}\n\nTotal estimado: ${formatCL(total)}.-\n\nAgrega tu dirección para coordinar el envío:\n\nNúmero de contacto:\n\nGracias.`;
 
               window.location.href = `/contactoemail?message=${encodeURIComponent(fullMessage)}`;
             }}
