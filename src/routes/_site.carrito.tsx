@@ -150,7 +150,7 @@ function CartPage() {
                 )
                 .join("\n");
 
-              const fullMessage = `Hola, quiero cotizar:\n\n${message}\n\nTotal estimado: ${formatCL(total)}\n\nTotal dirección:`;
+              const fullMessage = `Hola, quiero cotizar:\n\n${message}\n\nTotal estimado: ${formatCL(total)}\n\nTú dirección:`;
 
               window.location.href = `/contactoemail?message=${encodeURIComponent(fullMessage)}`;
             }}

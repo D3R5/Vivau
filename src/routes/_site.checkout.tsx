@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, redirect } from "@tanstack/react-router";
 import { useState } from "react";
 import { useCart, useProducts } from "@/lib/store";
 import { effectivePrice, formatCL } from "@/lib/mock-data";
@@ -8,6 +8,11 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export const Route = createFileRoute("/_site/checkout")({
+  beforeLoad: () => {
+    throw redirect({
+      to: "/",
+    });
+  }, // para ir a checkout borrar el beforeLoad y dejar component: CheckoutPage, y en el carrito cambiar el link a /checkout
   component: CheckoutPage,
 });
 
@@ -22,7 +27,9 @@ function CheckoutPage() {
       const p = products.find((pr) => pr.id === i.productId);
       return p ? { p, quantity: i.quantity } : null;
     })
-    .filter((x): x is { p: NonNullable<ReturnType<typeof products.find>>; quantity: number } => !!x);
+    .filter(
+      (x): x is { p: NonNullable<ReturnType<typeof products.find>>; quantity: number } => !!x,
+    );
 
   const subtotal = lines.reduce((sum, l) => sum + effectivePrice(l.p) * l.quantity, 0);
   const shipping = subtotal > 15000 || subtotal === 0 ? 0 : 899;
