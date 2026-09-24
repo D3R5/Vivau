@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useSearch } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_site/contactoemail")({
   component: ContactoPageEmail,
@@ -8,6 +9,8 @@ export const Route = createFileRoute("/_site/contactoemail")({
 function ContactoPageEmail() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const search = useSearch({ from: "/_site/contactoemail" });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -63,6 +66,7 @@ function ContactoPageEmail() {
 
           <textarea
             name="message"
+            defaultValue={search.message || "" || ""}
             placeholder="Tu mensaje..."
             required
             rows={4}
