@@ -25,7 +25,7 @@ export const Route = createFileRoute("/_site/catalogo")({
   component: CatalogPage,
 });
 
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 9;
 
 function CatalogPage() {
   const { categoria, ofertas, q, page = 1 } = Route.useSearch();

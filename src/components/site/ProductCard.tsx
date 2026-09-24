@@ -32,7 +32,7 @@ export function ProductCard({ product }: { product: Product }) {
         )}
         <div className="pointer-events-none absolute inset-x-3 bottom-3 flex opacity-0 transition-opacity group-hover:opacity-100">
           <Button size="sm" variant="secondary" className="pointer-events-auto w-full gap-2">
-            <Eye className="h-3.5 w-3.5" /> Vista rápida
+            <Eye className="h-3.5 w-3.5" /> Ver más
           </Button>
         </div>
       </Link>
