@@ -256,7 +256,9 @@ function ProductDetailPage() {
               <Truck className="mt-0.5 h-5 w-5 text-primary" />
               <div>
                 <p className="font-medium">Envío a domicilio</p>
-                <p className="text-xs text-muted-foreground">A coordinar con comprador</p>
+                <p className="text-xs text-muted-foreground">
+                  Retiro o envío a coordinar con comprador
+                </p>
               </div>
             </div>
             <div className="flex items-start gap-3 rounded-md bg-secondary/50 p-4">
