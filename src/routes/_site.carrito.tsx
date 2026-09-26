@@ -160,7 +160,7 @@ function CartPage() {
             Solicitar cotización
           </Button>
           <p className="mt-3 text-center text-xs text-muted-foreground">
-            Envío por coordinar a todo Chile. <br />
+            Retiro o envío (por coordinar) a todo Chile <br />
           </p>
         </aside>
       </div>

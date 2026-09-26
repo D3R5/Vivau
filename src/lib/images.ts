@@ -20,6 +20,9 @@ import banca2 from "../assets/banca-1/2.jfif";
 import banca3 from "../assets/banca-2/1.png";
 import banca4 from "../assets/banca-2/2.jfif";
 
+import banca5 from "../assets/banca-3/1.png";
+import banca6 from "../assets/banca-3/2.png";
+
 import mesita1 from "../assets/mesita-esquinera/1.png";
 import mesita2 from "../assets/mesita-esquinera/2.png";
 
@@ -35,6 +38,12 @@ import exterior from "../assets/exterior/exterior.jfif";
 
 import espejo from "../assets/espejo/1.png";
 import espejo2 from "../assets/espejo/2.png";
+
+import espejo3 from "../assets/espejo-2/1.png";
+import espejo4 from "../assets/espejo-2/2.png";
+
+import estante1 from "../assets/estante/1.png";
+import estante2 from "../assets/estante/2.png";
 
 
 export const images = {
@@ -70,6 +79,10 @@ export const images = {
     cover: banca3,
     gallery: [banca3, banca4],
   },
+  banca3: {
+    cover: banca5,
+    gallery: [banca5, banca6],
+  },
   mesitaEsquinera: {
     cover: mesita1,
     gallery: [mesita1, mesita2],
@@ -77,6 +90,10 @@ export const images = {
   espejo: {
     cover: espejo,
     gallery: [espejo, espejo2],
+  },
+  espejo2: {
+    cover: espejo3,
+    gallery: [espejo3, espejo4],
   },
   comedor: {
     cover: comedor,
@@ -97,5 +114,9 @@ export const images = {
   exterior: {
     cover: exterior,
     gallery: [exterior],
+  },
+  estante1: {
+    cover: estante1,
+    gallery: [estante1, estante2],
   },
 };
