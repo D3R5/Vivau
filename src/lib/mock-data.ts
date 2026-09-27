@@ -117,7 +117,7 @@ export const products: Product[] = [
     updatedAt: "2025-06-01",
   },
   {
-    id: "p-002",
+    id: "p-003",
     name: "Rack para TV Diseño 2",
     slug: "rack-tv",
     categorySlug: "sala",
