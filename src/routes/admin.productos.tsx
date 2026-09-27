@@ -400,10 +400,10 @@ function ProductForm({
               onChange={(e) => set("dimensions", e.target.value)}
             />
           </div>
-          <div>
+          {/* <div>
             <Label>Peso</Label>
             <Input className="mt-1.5" value={p.weight} onChange={(e) => set("weight", e.target.value)} />
-          </div>
+          </div> */}
         </div>
 
         <div>

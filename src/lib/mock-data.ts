@@ -94,7 +94,7 @@ export const products: Product[] = [
   },
   {
     id: "p-002",
-    name: "Rack para TV",
+    name: "Rack para TV Diseño 1",
     slug: "rack-tv",
     categorySlug: "sala",
     brand: "Artesanal",
@@ -117,7 +117,31 @@ export const products: Product[] = [
     updatedAt: "2025-06-01",
   },
   {
-    id: "p-003",
+    id: "p-002",
+    name: "Rack para TV Diseño 2",
+    slug: "rack-tv",
+    categorySlug: "sala",
+    brand: "Artesanal",
+    description:
+      "Organiza y realza tu sala de estar con este rack para televisor, diseñado para combinar estilo, funcionalidad y practicidad. Cuenta con un diseño versátil que se adapta a diferentes estilos de decoración, ofreciendo espacio para televisores, consolas, decodificadores, parlantes y objetos decorativos. Su estructura resistente brinda estabilidad y durabilidad, mientras que sus compartimentos ayudan a mantener cables y accesorios ordenados. La opción ideal para crear un ambiente moderno, organizado y acogedor en tu hogar.",
+    shortDescription:
+      "Rack para televisor con diseño moderno y funcional, ideal para organizar tu espacio de entretenimiento y mantener equipos, accesorios y decoración siempre al alcance.",
+    image: images.rackTv2.cover,
+    gallery: images.rackTv2.gallery,
+    price: 109990,
+    stock: 1,
+    sku: "RT-002",
+    material: "Patas de Hierro, Madera de Raulí",
+    dimensions: "120 × 60 × 37 cm",
+    weight: "--",
+    featured: true,
+    active: true,
+    tags: ["rack", "tv", "sala", "rauli", "hierro"],
+    createdAt: "2025-03-02",
+    updatedAt: "2025-06-01",
+  },
+  {
+    id: "p-004",
     name: "Perchero de Hierro",
     slug: "perchero-hierro",
     categorySlug: "sala",
@@ -142,7 +166,7 @@ export const products: Product[] = [
     updatedAt: "2025-05-11",
   },
   {
-    id: "p-004",
+    id: "p-005",
     name: "Arrimo Diseño 1",
     slug: "arrimo-diseño-1",
     categorySlug: "comedor",
@@ -165,7 +189,7 @@ export const products: Product[] = [
     updatedAt: "2025-05-11",
   },
   {
-    id: "p-005",
+    id: "p-006",
     name: "Arrimo Diseño 2",
     slug: "arrimo-diseño-2",
     categorySlug: "comedor",
@@ -188,7 +212,7 @@ export const products: Product[] = [
     updatedAt: "2025-05-11",
   },
   {
-    id: "p-006",
+    id: "p-007",
     name: "Arrimo Diseño 3",
     slug: "arrimo-diseño-3",
     categorySlug: "comedor",
@@ -211,7 +235,7 @@ export const products: Product[] = [
     updatedAt: "2025-05-11",
   },
   {
-    id: "p-007",
+    id: "p-008",
     name: "Banca Diseño 1",
     slug: "banca-diseño-1",
     categorySlug: "oficina",
@@ -235,7 +259,7 @@ export const products: Product[] = [
     updatedAt: "2025-06-01",
   },
   {
-    id: "p-008",
+    id: "p-009",
     name: "Banca Diseño 2",
     slug: "banca-diseño-2",
     categorySlug: "oficina",
@@ -259,7 +283,7 @@ export const products: Product[] = [
     updatedAt: "2025-06-01",
   },
   {
-    id: "p-009",
+    id: "p-010",
     name: "Banca Diseño 3",
     slug: "banca-diseño-3",
     categorySlug: "oficina",
@@ -283,7 +307,7 @@ export const products: Product[] = [
     updatedAt: "2025-06-01",
   },
   {
-    id: "p-010",
+    id: "p-011",
     name: "Mesita Esquinera",
     slug: "mesita-esquinera",
     categorySlug: "sala",
@@ -308,7 +332,7 @@ export const products: Product[] = [
     updatedAt: "2025-06-15",
   },
   {
-    id: "p-011",
+    id: "p-012",
     name: "Espejo de Raulí Diseño 1",
     slug: "espejo-rauli-50x90",
     categorySlug: "decoracion",
@@ -333,7 +357,7 @@ export const products: Product[] = [
     updatedAt: "2025-06-20",
   },
   {
-    id: "p-012",
+    id: "p-013",
     name: "Espejo de Raulí Diseño 2",
     slug: "espejo-rauli-diseño-2",
     categorySlug: "decoracion",
@@ -358,7 +382,7 @@ export const products: Product[] = [
     updatedAt: "2025-06-20",
   },
   {
-    id: "p-013",
+    id: "p-014",
     name: "Estante",
     slug: "estante-rauli-diseno-1",
     categorySlug: "decoracion",

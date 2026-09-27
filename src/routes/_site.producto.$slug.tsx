@@ -216,8 +216,8 @@ function ProductDetailPage() {
             <dd>{product.material}</dd>
             <dt className="text-muted-foreground">Dimensiones</dt>
             <dd>{product.dimensions}</dd>
-            <dt className="text-muted-foreground">Peso</dt>
-            <dd>{product.weight}</dd>
+            {/* <dt className="text-muted-foreground">Peso</dt>
+            <dd>{product.weight}</dd> */}
             <dt className="text-muted-foreground">Marca</dt>
             <dd>{product.brand}</dd>
           </dl>

@@ -8,6 +8,9 @@ import rack1 from "../assets/rack-tv/1.jfif";
 import rack2 from "../assets/rack-tv/2.jfif";
 import rack3 from "../assets/rack-tv/3.jfif";
 
+import rack4 from "../assets/rack-tv-2/1.jfif";
+import rack5 from "../assets/rack-tv-2/2.jfif";
+
 import arrimo1 from "../assets/arrimo-1/arrimo_1.png";
 
 import arrimo2 from "../assets/arrimo-2/arrimo_2.jfif";
@@ -45,6 +48,8 @@ import espejo4 from "../assets/espejo-2/2.png";
 import estante1 from "../assets/estante/1.png";
 import estante2 from "../assets/estante/2.png";
 
+import repisa from "../assets/repisa-1/1.png";
+import repisa2 from "../assets/repisa-2/1.png";
 
 export const images = {
   mesaCentro: {
@@ -58,6 +63,10 @@ export const images = {
   rackTv: {
     cover: rack1,
     gallery: [rack1, rack2, rack3],
+  },
+  rackTv2: {
+    cover: rack4,
+    gallery: [rack4, rack5],
   },
   arrimo1: {
     cover: arrimo1,
