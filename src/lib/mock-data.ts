@@ -119,7 +119,7 @@ export const products: Product[] = [
   {
     id: "p-003",
     name: "Rack para TV Diseño 2",
-    slug: "rack-tv",
+    slug: "rack-tv-2",
     categorySlug: "sala",
     brand: "Artesanal",
     description:
