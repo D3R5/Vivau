@@ -142,7 +142,7 @@ function CatalogPage() {
                     }`}
                   >
                     <span>{c.name}</span>
-                    <span className="text-muted-foreground text-xs">
+                    <span className="text-muted-foreground text-xs ml-1">
                       ({categoryCounts[c.slug] || 0})
                     </span>{" "}
                   </Link>
