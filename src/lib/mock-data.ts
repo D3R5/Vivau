@@ -11,7 +11,7 @@ export type Product = {
   id: string;
   name: string;
   slug: string;
-  categorySlug: string;
+  categorySlugs: string[];
   brand: string;
   description: string;
   shortDescription: string;
@@ -72,7 +72,7 @@ export const products: Product[] = [
     id: "p-001",
     name: "Mesa de Centro",
     slug: "mesa-centro",
-    categorySlug: "sala",
+    categorySlugs:["sala"],
     brand: "Artesanal",
     description:
       "Dale un toque de estilo y funcionalidad a tu sala con esta mesa de centro, diseñada para convertirse en el punto focal de tu espacio. Su diseño versátil se adapta a distintos estilos de decoración, mientras que su amplia superficie es perfecta para colocar libros, revistas, bebidas, controles remotos o elementos decorativos. Fabricada con materiales de calidad, ofrece estabilidad, resistencia y una apariencia elegante que complementa cualquier ambiente del hogar. Ideal para crear un espacio acogedor y práctico en tu living.",
@@ -96,7 +96,7 @@ export const products: Product[] = [
     id: "p-002",
     name: "Rack para TV Diseño 1",
     slug: "rack-tv",
-    categorySlug: "sala",
+    categorySlugs: ["sala", "recamara"],
     brand: "Artesanal",
     description:
       "Organiza y realza tu sala de estar con este rack para televisor, diseñado para combinar estilo, funcionalidad y practicidad. Cuenta con un diseño versátil que se adapta a diferentes estilos de decoración, ofreciendo espacio para televisores, consolas, decodificadores, parlantes y objetos decorativos. Su estructura resistente brinda estabilidad y durabilidad, mientras que sus compartimentos ayudan a mantener cables y accesorios ordenados. La opción ideal para crear un ambiente moderno, organizado y acogedor en tu hogar.",
@@ -120,7 +120,7 @@ export const products: Product[] = [
     id: "p-003",
     name: "Rack para TV Diseño 2",
     slug: "rack-tv-2",
-    categorySlug: "sala",
+    categorySlugs: ["sala", "recamara"],
     brand: "Artesanal",
     description:
       "Organiza y realza tu sala de estar con este rack para televisor, diseñado para combinar estilo, funcionalidad y practicidad. Cuenta con un diseño versátil que se adapta a diferentes estilos de decoración, ofreciendo espacio para televisores, consolas, decodificadores, parlantes y objetos decorativos. Su estructura resistente brinda estabilidad y durabilidad, mientras que sus compartimentos ayudan a mantener cables y accesorios ordenados. La opción ideal para crear un ambiente moderno, organizado y acogedor en tu hogar.",
@@ -144,7 +144,7 @@ export const products: Product[] = [
     id: "p-004",
     name: "Perchero de Hierro",
     slug: "perchero-hierro",
-    categorySlug: "sala",
+    categorySlugs: ["sala", "recamara"],
     brand: "Artesanos",
     description:
       "Mantén tus prendas y accesorios siempre organizados con este perchero de hierro, diseñado para ofrecer resistencia, estabilidad y un estilo contemporáneo. Su estructura metálica proporciona gran durabilidad para el uso diario, mientras que su diseño versátil se adapta fácilmente a recibidores, dormitorios, salas de estar, oficinas o locales comerciales. Perfecto para colgar chaquetas, abrigos, bolsos, sombreros y otros accesorios, optimizando el espacio y aportando un toque moderno a cualquier ambiente.",
@@ -169,7 +169,7 @@ export const products: Product[] = [
     id: "p-005",
     name: "Arrimo Diseño 1",
     slug: "arrimo-diseño-1",
-    categorySlug: "comedor",
+    categorySlugs: ["sala", "comedor"],
     brand: "VIVAU Artesanos",
     description:
       "Arrimo de diseño elegante con estructura de hierro resistente y cubierta de raulí, que combina solidez y calidez natural para complementar distintos espacios.",
@@ -192,7 +192,7 @@ export const products: Product[] = [
     id: "p-006",
     name: "Arrimo Diseño 2",
     slug: "arrimo-diseño-2",
-    categorySlug: "comedor",
+    categorySlugs: ["sala", "comedor"],
     brand: "VIVAU Artesanos",
     description:
       "Arrimo de diseño elegante con estructura de hierro resistente y cubierta de raulí, que combina solidez y calidez natural para complementar distintos espacios.",
@@ -215,7 +215,7 @@ export const products: Product[] = [
     id: "p-007",
     name: "Arrimo Diseño 3",
     slug: "arrimo-diseño-3",
-    categorySlug: "comedor",
+    categorySlugs: ["sala"],
     brand: "VIVAU Artesanos",
     description:
       "Arrimo de diseño elegante con estructura de hierro resistente y cubierta de raulí, que combina solidez y calidez natural para complementar distintos espacios.",
@@ -238,7 +238,7 @@ export const products: Product[] = [
     id: "p-008",
     name: "Banca Diseño 1",
     slug: "banca-diseño-1",
-    categorySlug: "oficina",
+    categorySlugs: ["exterior"],
     brand: "VIVAU Artesanos",
     description:
       "Banca de dos plazas en hierro y madera de pino, ideal para espacios de oficina o sala de espera. Su diseño combina la robustez del hierro con la calidez de la madera, ofreciendo comodidad y estilo. Perfecta para recibir a tus visitantes o para crear un rincón acogedor en tu oficina, esta banca es una pieza funcional y decorativa que se adapta a distintos ambientes.",
@@ -262,7 +262,7 @@ export const products: Product[] = [
     id: "p-009",
     name: "Banca Diseño 2",
     slug: "banca-diseño-2",
-    categorySlug: "oficina",
+    categorySlugs: ["exterior"],
     brand: "VIVAU Artesanos",
     description:
       "Banca de dos plazas en hierro y madera de pino, ideal para espacios de oficina o sala de espera. Su diseño combina la robustez del hierro con la calidez de la madera, ofreciendo comodidad y estilo. Perfecta para recibir a tus visitantes o para crear un rincón acogedor en tu oficina, esta banca es una pieza funcional y decorativa que se adapta a distintos ambientes.",
@@ -286,7 +286,7 @@ export const products: Product[] = [
     id: "p-010",
     name: "Banca Diseño 3",
     slug: "banca-diseño-3",
-    categorySlug: "oficina",
+    categorySlugs: ["exterior"],
     brand: "VIVAU Artesanos",
     description:
       "Banca de dos plazas en hierro y madera de pino, ideal para espacios de oficina o sala de espera. Su diseño combina la robustez del hierro con la calidez de la madera, ofreciendo comodidad y estilo. Perfecta para recibir a tus visitantes o para crear un rincón acogedor en tu oficina, esta banca es una pieza funcional y decorativa que se adapta a distintos ambientes.",
@@ -310,7 +310,7 @@ export const products: Product[] = [
     id: "p-011",
     name: "Mesita Esquinera",
     slug: "mesita-esquinera",
-    categorySlug: "sala",
+    categorySlugs: ["sala", "comedor"],
     brand: "VIVAU Artesanos",
     description:
       "Mesita esquinera de hierro y madera de raulí, ideal para complementar tu sala o dormitorio con estilo y funcionalidad. Su diseño compacto permite ubicarla en esquinas, optimizando el espacio disponible. La combinación de hierro y madera aporta un toque moderno y cálido a cualquier ambiente, mientras que su superficie es perfecta para colocar lámparas, libros o elementos decorativos. Una pieza versátil que combina estética y practicidad en tu hogar.",
@@ -335,7 +335,7 @@ export const products: Product[] = [
     id: "p-012",
     name: "Espejo de Raulí Diseño 1",
     slug: "espejo-rauli-50x90",
-    categorySlug: "decoracion",
+    categorySlugs: ["sala", "comedor", "recamara"],
     brand: "VIVAU Artesanos",
     description:
       "Espejo de muro fabricado en madera de raulí de alta calidad, diseñado para aportar elegancia y calidez a cualquier espacio. Su formato de 50 x 90 cm lo hace ideal para dormitorios, livings, pasillos o recibidores, ampliando visualmente los ambientes y mejorando la iluminación natural. El marco de raulí, con su veta natural y acabado fino, entrega un estilo moderno y atemporal que se adapta a distintos tipos de decoración. Una pieza funcional y decorativa que realza tu hogar con un toque artesanal.",
@@ -360,7 +360,7 @@ export const products: Product[] = [
     id: "p-013",
     name: "Espejo de Raulí Diseño 2",
     slug: "espejo-rauli-diseño-2",
-    categorySlug: "decoracion",
+    categorySlugs: ["sala", "comedor", "recamara"],
     brand: "VIVAU Artesanos",
     description:
       "Espejo de muro fabricado en madera de raulí de alta calidad, diseñado para aportar elegancia y calidez a cualquier espacio. Su formato de 50 x 90 cm lo hace ideal para dormitorios, livings, pasillos o recibidores, ampliando visualmente los ambientes y mejorando la iluminación natural. El marco de raulí, con su veta natural y acabado fino, entrega un estilo moderno y atemporal que se adapta a distintos tipos de decoración. Una pieza funcional y decorativa que realza tu hogar con un toque artesanal.",
@@ -385,7 +385,7 @@ export const products: Product[] = [
     id: "p-014",
     name: "Estante",
     slug: "estante-rauli-diseno-1",
-    categorySlug: "decoracion",
+    categorySlugs: ["sala", "recamara"],
     brand: "VIVAU Artesanos",
     description:
       "Estante de muro fabricado en madera de raulí y hierro de alta calidad, diseñado para aportar funcionalidad y estilo a cualquier espacio. Su estructura sólida y acabado fino resaltan la veta natural de la madera, entregando un aspecto cálido y elegante. Ideal para organizar libros, objetos decorativos, plantas o accesorios en livings, dormitorios, oficinas o recibidores. Su diseño minimalista y versátil se adapta a distintos estilos de decoración, convirtiéndolo en una pieza práctica y decorativa para tu hogar.",

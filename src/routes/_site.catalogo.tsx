@@ -39,7 +39,7 @@ function CatalogPage() {
 
   const filtered = useMemo(() => {
     return activeAll.filter((p) => {
-      if (categoria && p.categorySlug !== categoria) return false;
+      if (categoria && !p.categorySlugs.includes(categoria)) return false;
       if (ofertas && !p.salePrice) return false;
       if (query && !p.name.toLowerCase().includes(query.toLowerCase())) return false;
       if (effectivePrice(p) > priceRange[0]) return false;
