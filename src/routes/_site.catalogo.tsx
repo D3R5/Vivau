@@ -39,7 +39,7 @@ function CatalogPage() {
 
   const filtered = useMemo(() => {
     return activeAll.filter((p) => {
-      if (categoria && !p.categorySlugs.includes(categoria)) return false;
+      if (categoria && !(p.categorySlugs ?? [p.categorySlug]).includes(categoria)) return false;
       if (ofertas && !p.salePrice) return false;
       if (query && !p.name.toLowerCase().includes(query.toLowerCase())) return false;
       if (effectivePrice(p) > priceRange[0]) return false;
@@ -51,6 +51,19 @@ function CatalogPage() {
   const currentPage = Math.min(page, totalPages);
   const paged = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
+  const categoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+
+    activeAll.forEach((p) => {
+      const cats = p.categorySlugs ?? [p.categorySlug]; // 👈 soporte mixto
+
+      cats.forEach((slug) => {
+        counts[slug] = (counts[slug] || 0) + 1;
+      });
+    });
+
+    return counts;
+  }, [activeAll]);
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="mb-8">
@@ -99,7 +112,7 @@ function CatalogPage() {
                 <option value="">Todas</option>
                 {categories.map((c) => (
                   <option key={c.slug} value={c.slug}>
-                    {c.name}
+                    {c.name} ({categoryCounts[c.slug] || 0})
                   </option>
                 ))}
               </select>
@@ -128,7 +141,10 @@ function CatalogPage() {
                       categoria === c.slug ? "bg-secondary" : "hover:bg-secondary/60"
                     }`}
                   >
-                    {c.name}
+                    <span>{c.name}</span>
+                    <span className="text-muted-foreground text-xs">
+                      ({categoryCounts[c.slug] || 0})
+                    </span>{" "}
                   </Link>
                 </li>
               ))}
