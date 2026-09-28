@@ -63,7 +63,7 @@ export function WhatsAppWidget() {
                     <p>{faq.answer}</p>
 
                     <a
-                      href={createLink(faq.answer)}
+                      href={createLink(faq.question)}
                       target="_blank"
                       className="inline-block text-green-600 font-medium hover:underline"
                     >
