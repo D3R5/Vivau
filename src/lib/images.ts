@@ -49,7 +49,10 @@ import estante1 from "../assets/estante/1.png";
 import estante2 from "../assets/estante/2.png";
 
 import repisa from "../assets/repisa-1/1.png";
-import repisa2 from "../assets/repisa-2/1.png";
+import repisa2 from "../assets/repisa-1/2.png";
+
+import esquinero1 from "../assets/esquinero-1/1.png";
+import esquinero2 from "../assets/esquinero-1/2.png";
 
 export const images = {
   mesaCentro: {
@@ -127,5 +130,9 @@ export const images = {
   estante1: {
     cover: estante1,
     gallery: [estante1, estante2],
+  },
+  esquinero: {
+    cover: esquinero1,
+    gallery: [esquinero1, esquinero2],
   },
 };
