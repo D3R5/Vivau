@@ -26,6 +26,8 @@ import banca4 from "../assets/banca-2/2.jfif";
 import banca5 from "../assets/banca-3/1.png";
 import banca6 from "../assets/banca-3/2.png";
 
+import banca7 from "../assets/banca-4/1.jpg";
+
 import mesita1 from "../assets/mesita-esquinera/1.png";
 import mesita2 from "../assets/mesita-esquinera/2.png";
 
@@ -53,6 +55,20 @@ import repisa2 from "../assets/repisa-1/2.png";
 
 import esquinero1 from "../assets/esquinero-1/1.png";
 import esquinero2 from "../assets/esquinero-1/2.png";
+
+import estanteXl from "../assets/estante-xl/1.png";
+
+import muebleSala1 from "../assets/mueble-sala-1/1.jpg";
+import muebleSala2 from "../assets/mueble-sala-1/2.jpg";
+
+import escritorio1 from "../assets/escritorio1/1.png";
+
+import tablaPicar1 from "../assets/tabla-picar-1/1.png";
+import tablaPicar2 from "../assets/tabla-picar-1/2.png";
+
+import bandeja1 from "../assets/bandeja-madera-1/1.png";
+import bandeja2 from "../assets/bandeja-madera-1/2.png";
+import bandeja3 from "../assets/bandeja-madera-1/3.png";
 
 export const images = {
   mesaCentro: {
@@ -95,6 +111,10 @@ export const images = {
     cover: banca5,
     gallery: [banca5, banca6],
   },
+  banca4: {
+    cover: banca7,
+    gallery: [banca7],
+  },
   mesitaEsquinera: {
     cover: mesita1,
     gallery: [mesita1, mesita2],
@@ -134,5 +154,25 @@ export const images = {
   esquinero: {
     cover: esquinero1,
     gallery: [esquinero1, esquinero2],
+  },
+  estanteXl: {
+    cover: estanteXl,
+    gallery: [estanteXl], 
+  },
+  muebleSala1: {
+    cover: muebleSala1,
+    gallery: [muebleSala1, muebleSala2], 
+  },
+  escritorio1: {
+    cover: escritorio1,
+    gallery: [escritorio1], 
+  },
+  tablaPicar1: {
+    cover: tablaPicar1,
+    gallery: [tablaPicar1, tablaPicar2], 
+  },
+  bandeja1: {
+    cover: bandeja1,
+    gallery: [bandeja1, bandeja2, bandeja3],
   },
 };
