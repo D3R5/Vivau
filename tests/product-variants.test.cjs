@@ -5,14 +5,22 @@ const { resolve } = require("node:path");
 const ts = require("typescript");
 
 // Compile the actual domain/store modules without loading Vite's image imports.
-function loadSource(file, dependencies = {}) {
+function loadSource(file, dependencies = {}, expose = "") {
   const filename = resolve(__dirname, "..", file);
   const { outputText } = ts.transpileModule(readFileSync(filename, "utf8"), {
-    compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
+    compilerOptions: {
+      module: ts.ModuleKind.CommonJS,
+      target: ts.ScriptTarget.ES2022,
+      jsx: ts.JsxEmit.ReactJSX,
+    },
   });
   const module = { exports: {} };
   const localRequire = (id) => (id in dependencies ? dependencies[id] : require(id));
-  new Function("require", "module", "exports", outputText)(localRequire, module, module.exports);
+  new Function("require", "module", "exports", outputText + expose)(
+    localRequire,
+    module,
+    module.exports,
+  );
   return module.exports;
 }
 
@@ -131,4 +139,72 @@ test("legacy persisted products gain variants without losing local fields", () =
     .getOptions()
     .migrate({ items: [{ productId: "chair", quantity: 1 }] }, 0);
   assert.equal(oldCart.items[0].variantSku, "SIL-ST");
+});
+
+test("product detail button adds the selected variant and reports success only when accepted", () => {
+  const React = require("react");
+  const { renderToString } = require("react-dom/server");
+  const messages = [];
+  let addButton;
+  const passThrough = ({ children }) => React.createElement("div", null, children);
+  const { ProductDetail } = loadSource(
+    "src/routes/_site.producto.$slug.tsx",
+    {
+      "@tanstack/react-router": {
+        createFileRoute: () => (options) => options,
+        Link: passThrough,
+      },
+      "@/lib/mock-data": {
+        categories: [],
+        effectivePrice: (product) => product.salePrice ?? product.price,
+        discountPct: () => 0,
+        formatCL: (price) => String(price),
+      },
+      "@/lib/store": { useCart, useProducts },
+      "@/lib/product-variants": variants,
+      "@/components/ui/button": {
+        Button: (props) => {
+          if (React.Children.toArray(props.children).includes("Añadir al carrito")) {
+            addButton = props.onClick;
+          }
+          return React.createElement("button", null, props.children);
+        },
+      },
+      "@/components/ui/badge": { Badge: passThrough },
+      "@/components/site/ProductGallery": { ProductGallery: () => null },
+      "@/components/site/ProductCard": { ProductCard: () => null },
+      sonner: {
+        toast: {
+          success: (message) => messages.push({ kind: "success", message }),
+          error: (message) => messages.push({ kind: "error", message }),
+        },
+      },
+    },
+    "\nexports.ProductDetail = ProductDetail;",
+  );
+  const selectedChair = {
+    ...chair,
+    categorySlugs: [],
+    variants: [chair.variants[1], chair.variants[0]],
+  };
+  renderToString(
+    React.createElement(ProductDetail, {
+      baseProduct: selectedChair,
+      products: [],
+    }),
+  );
+  assert.equal(typeof addButton, "function");
+  addButton();
+  assert.equal(useCart.getState().items.length, 1);
+  const item = useCart.getState().items[0];
+  assert.equal(item.variantSku, "SIL-T");
+  const line = variants.resolveProduct(chair, item.variantSku);
+  assert.equal(line.sku, "SIL-T");
+  assert.equal(line.price * item.quantity, 69990);
+  assert.equal(messages[0].kind, "success");
+  assert.match(messages[0].message, /Tapizada/);
+  useCart.getState().setQty("chair", 3, "SIL-T");
+  addButton();
+  assert.equal(messages[1].kind, "error");
+  assert.equal(useCart.getState().items[0].quantity, 3);
 });

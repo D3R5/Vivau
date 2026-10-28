@@ -56,8 +56,11 @@ function ProductDetail({ baseProduct, products }: { baseProduct: Product; produc
     .slice(0, 4);
 
   const handleAdd = () => {
-    add(product.id, qty);
-    toast.success(`${product.name} añadido al carrito`);
+    if (add(product.id, qty, selectedSku)) {
+      toast.success(`${product.name} añadido al carrito`);
+    } else {
+      toast.error("No se pudo agregar: revisa la disponibilidad de esta opción en tu carrito.");
+    }
   };
 
   return (
