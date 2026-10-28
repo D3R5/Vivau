@@ -179,51 +179,47 @@ sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:overflow-visible"
       </section>
 
       {/* Beneficios */}
-      <section className="bg-primary/95 text-primary-foreground">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl md:text-4xl">Nuestros beneficios</h2>
-
-          {/* MOBILE: cada snap ocupa todo el ancho del viewport (sin peek) */}
-          <div className="mt-10 md:hidden">
-            <div
-              className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory px-0 hide-scrollbar"
-              aria-label="Beneficios (desliza horizontalmente)"
-              style={{ WebkitOverflowScrolling: "touch" }}
-            >
-              {benefits.map((b) => (
-                /* cada snap-area ocupa TODO el ancho: w-full */
-                <div
-                  key={b.title}
-                  className="snap-center flex-shrink-0 w-full"
-                  style={{ scrollSnapAlign: "center", scrollSnapStop: "always" }}
-                >
-                  {/* card interior centrado y con max-width para dejar márgenes laterales */}
-                  <div className="mx-auto max-w-[520px] px-6 flex flex-col gap-3 rounded-2xl bg-primary/5 p-6">
-                    <div className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-primary">
-                      <b.icon className="h-5 w-5" />
-                    </div>
-
-                    <h3 className="font-display text-lg">{b.title}</h3>
-                    <p className="text-sm text-primary-foreground/80">{b.text}</p>
-                  </div>
-                </div>
-              ))}
+      <section
+        aria-labelledby="benefits-title"
+        className="relative isolate overflow-hidden bg-primary text-primary-foreground"
+      >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 bg-linear-to-br from-primary-foreground/5 via-transparent to-accent/10"
+        />
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
+          <div className="grid gap-5 lg:grid-cols-2 lg:items-end lg:gap-12">
+            <div>
+              <p className="mb-3 text-[10px] font-medium uppercase tracking-[0.2em] text-primary-foreground/65 sm:text-xs">
+                La experiencia VIVAU
+              </p>
+              <h2 id="benefits-title" className="font-display text-3xl leading-tight sm:text-4xl">
+                Nuestros beneficios
+              </h2>
             </div>
+            <p className="max-w-md text-sm leading-relaxed text-primary-foreground/75 lg:justify-self-end lg:text-base">
+              Te acompañamos desde la elección de tu mueble hasta la coordinación de su entrega.
+            </p>
           </div>
 
-          {/* DESKTOP / TABLET: grid original */}
-          <div className="hidden md:grid mt-10 gap-8 md:grid-cols-4">
-            {benefits.map((b) => (
-              <div key={b.title} className="flex flex-col gap-3">
-                <div className="grid h-11 w-11 place-items-center rounded-full bg-secondary text-primary">
-                  <b.icon className="h-5 w-5" />
+          <ul className="mt-8 grid min-w-0 grid-cols-1 gap-3 sm:mt-10 sm:grid-cols-2 lg:mt-12 lg:grid-cols-4 lg:gap-4">
+            {benefits.map((benefit) => (
+              <li
+                key={benefit.title}
+                className="flex min-w-0 items-start gap-4 rounded-xl border border-primary-foreground/15 bg-primary-foreground/5 p-5 sm:flex-col sm:gap-5 sm:p-6"
+              >
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-primary-foreground/15 bg-secondary text-primary">
+                  <benefit.icon className="h-5 w-5" strokeWidth={1.5} aria-hidden="true" />
+                </span>
+                <div className="min-w-0">
+                  <h3 className="font-display text-lg leading-snug sm:text-xl">{benefit.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-primary-foreground/75">
+                    {benefit.text}
+                  </p>
                 </div>
-
-                <h3 className="font-display text-lg">{b.title}</h3>
-                <p className="text-sm text-primary-foreground/80">{b.text}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
