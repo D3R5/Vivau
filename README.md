@@ -132,7 +132,7 @@ El destinatario y el remitente del correo están escritos directamente en `src/r
 | `npm run lint` | Ejecuta ESLint sobre el proyecto |
 | `npm run format` | Aplica Prettier; modifica los archivos correspondientes |
 
-No hay un script de pruebas automatizadas definido en `package.json`.
+`npm test` ejecuta las pruebas de variantes, carrito, stock y migración de datos persistidos.
 
 ## Rutas
 
@@ -196,6 +196,16 @@ Cada producto incluye:
 - Publicación: `featured`, `active`, `createdAt` y `updatedAt`.
 
 `effectivePrice` utiliza `salePrice` cuando está definido; de lo contrario, utiliza `price`. `formatCL` da formato a los importes en CLP y `discountPct` calcula el porcentaje de descuento.
+
+### Variantes de un producto
+
+Un producto puede incluir un arreglo `variants` en `src/lib/mock-data.ts`. Cada variante requiere `name`, `sku` único y `price`, y puede definir `stock`, `salePrice`, `description`, `shortDescription`, `material`, `dimensions`, `weight`, `image` y `gallery`.
+
+La ficha muestra un selector que actualiza los detalles según la opción elegida. Los campos no definidos heredan los datos generales del producto, salvo `salePrice`, que es específico de cada variante. El carrito y la cotización distinguen las variantes por su SKU. El catálogo muestra el precio menor con el prefijo «Desde».
+
+Por ejemplo, la Silla de Raulí incluye «Sin tapiz» ($59.990) y «Tapizada» ($69.990). Ambas mantienen stock cero hasta configurar su disponibilidad real. Las fotografías específicas se pueden registrar en `images.ts` y asignar a cada variante; mientras no se definan, se utilizan las imágenes generales.
+
+Los stores incluyen una migración de los datos anteriores para incorporar las variantes sin borrar el carrito ni las ediciones locales del catálogo.
 
 ### Agregar o actualizar un mueble
 

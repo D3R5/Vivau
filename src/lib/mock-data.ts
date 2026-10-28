@@ -7,6 +7,21 @@ export type Category = {
   description: string;
 };
 
+export type ProductVariant = {
+  name: string;
+  sku: string;
+  price: number;
+  salePrice?: number;
+  stock?: number;
+  description?: string;
+  shortDescription?: string;
+  material?: string;
+  dimensions?: string;
+  weight?: string;
+  image?: string;
+  gallery?: string[];
+};
+
 export type Product = {
   id: string;
   name: string;
@@ -29,6 +44,7 @@ export type Product = {
   tags: string[];
   createdAt: string;
   updatedAt: string;
+  variants?: ProductVariant[];
 };
 
 export const categories: Category[] = [
@@ -585,10 +601,10 @@ export const products: Product[] = [
       "Banca fabricada en fierro y madera de pino oregón, una combinación que aporta firmeza, calidez y un estilo versátil. Ideal para complementar terrazas, patios, jardines y otros espacios exteriores, ofreciendo un lugar cómodo para descansar o compartir. La mezcla de materiales permite integrarla en ambientes rústicos, industriales o contemporáneos. Se recomienda proteger la madera y las uniones metálicas según las condiciones de exposición.",
     shortDescription:
       "Banca de fierro y pino oregón, ideal para terrazas, patios y espacios exteriores.",
-    image: images.estante1.cover,
-    gallery: images.estante1.gallery,
+    image: images.banca5.cover,
+    gallery: images.banca5.gallery,
     price: 179990,
-    stock: 0,
+    stock: 1,
     sku: "BAN-022",
     material: "Fierro y pino oregón",
     dimensions: "160 cm de largo",
@@ -609,10 +625,10 @@ export const products: Product[] = [
       "Silla de madera de raulí diseñada para complementar comedores y otros espacios del hogar con un estilo cálido y natural. La veta característica de esta madera aporta personalidad, mientras que su diseño permite integrarla en ambientes clásicos, rústicos o contemporáneos. Disponible en versión sin tapiz y tapizada, para adaptarse a distintas preferencias y estilos de decoración.",
     shortDescription:
       "Silla de raulí disponible sin tapiz o tapizada, ideal para complementar tu comedor.",
-    image: images.estante1.cover,
-    gallery: images.estante1.gallery,
+    image: images.sillas.cover,
+    gallery: images.sillas.gallery,
     price: 59990,
-    stock: 0,
+    stock: 1,
     sku: "SIL-023",
     material: "Madera de raulí",
     dimensions: "--",
@@ -624,11 +640,23 @@ export const products: Product[] = [
         name: "Sin tapiz",
         price: 59990,
         sku: "SIL-023-ST",
+        image: images.sillaSinTapiz.cover,
+        gallery: images.sillaSinTapiz.gallery,
+        stock: 1,
+        material: "Madera de raulí, asiento sin tapiz",
+        description:
+          "Silla de madera de raulí sin tapiz. Su terminación en madera destaca la veta natural y aporta un estilo cálido al comedor.",
       },
       {
         name: "Tapizada",
         price: 69990,
         sku: "SIL-023-T",
+        image: images.sillaTapizada.cover,
+        gallery: images.sillaTapizada.gallery,
+        stock: 1,
+        material: "Madera de raulí con asiento tapizado",
+        description:
+          "Silla de madera de raulí con asiento tapizado, una alternativa para quienes prefieren una superficie acolchada en su comedor.",
       },
     ],
     tags: ["silla", "rauli", "comedor", "madera", "tapizada"],

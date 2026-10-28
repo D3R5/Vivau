@@ -3,6 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useSearch } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_site/contactoemail")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    message: typeof search.message === "string" ? search.message : undefined,
+  }),
   component: ContactoPageEmail,
 });
 
@@ -17,7 +20,8 @@ function ContactoPageEmail() {
     setLoading(true);
     setSuccess(false);
 
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
     const res = await fetch("/api/contact", {
       method: "POST",
@@ -35,7 +39,7 @@ function ContactoPageEmail() {
 
     if (res.ok) {
       setSuccess(true);
-      e.currentTarget.reset();
+      form.reset();
     }
   }
 

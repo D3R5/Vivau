@@ -28,6 +28,8 @@ import banca6 from "../assets/banca-3/2.png";
 
 import banca7 from "../assets/banca-4/1.jpg";
 
+import banca8 from "../assets/banca-5/1.jpg";
+
 import mesita1 from "../assets/mesita-esquinera/1.png";
 import mesita2 from "../assets/mesita-esquinera/2.png";
 
@@ -69,6 +71,9 @@ import tablaPicar2 from "../assets/tabla-picar-1/2.png";
 import bandeja1 from "../assets/bandeja-madera-1/1.png";
 import bandeja2 from "../assets/bandeja-madera-1/2.png";
 import bandeja3 from "../assets/bandeja-madera-1/3.png";
+
+import sillas from "../assets/silla-1/1.png";
+import sillas2 from "../assets/silla-1/2.png";
 
 export const images = {
   mesaCentro: {
@@ -114,6 +119,10 @@ export const images = {
   banca4: {
     cover: banca7,
     gallery: [banca7],
+  },
+  banca5: {
+    cover: banca8,
+    gallery: [banca8],
   },
   mesitaEsquinera: {
     cover: mesita1,
@@ -174,5 +183,17 @@ export const images = {
   bandeja1: {
     cover: bandeja1,
     gallery: [bandeja1, bandeja2, bandeja3],
+  },
+  sillas: {
+    cover: sillas,
+    gallery: [sillas, sillas2],
+  },
+  sillaSinTapiz: {
+    cover: sillas,
+    gallery: [sillas],
+  },
+  sillaTapizada: {
+    cover: sillas2,
+    gallery: [sillas2],
   },
 };

@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { ProductCard } from "@/components/site/ProductCard";
 import { categories, effectivePrice } from "@/lib/mock-data";
+import { productOptions } from "@/lib/product-variants";
 import { useProducts } from "@/lib/store";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
@@ -33,16 +34,21 @@ function CatalogPage() {
   const all = useProducts((s) => s.products);
 
   const activeAll = all.filter((p) => p.active);
-  const maxPrice = Math.max(...activeAll.map((p) => p.price));
+  const maxPrice = Math.max(0, ...activeAll.flatMap((p) => productOptions(p).map(effectivePrice)));
   const [priceRange, setPriceRange] = useState<[number]>([maxPrice]);
   const [query, setQuery] = useState(q ?? "");
 
   const filtered = useMemo(() => {
     return activeAll.filter((p) => {
-      if (categoria && !(p.categorySlugs ?? [p.categorySlug]).includes(categoria)) return false;
-      if (ofertas && !p.salePrice) return false;
+      if (categoria && !p.categorySlugs.includes(categoria)) return false;
       if (query && !p.name.toLowerCase().includes(query.toLowerCase())) return false;
-      if (effectivePrice(p) > priceRange[0]) return false;
+      if (
+        !productOptions(p).some(
+          (option) =>
+            effectivePrice(option) <= priceRange[0] && (!ofertas || Boolean(option.salePrice)),
+        )
+      )
+        return false;
       return true;
     });
   }, [activeAll, categoria, ofertas, query, priceRange]);
@@ -55,7 +61,7 @@ function CatalogPage() {
     const counts: Record<string, number> = {};
 
     activeAll.forEach((p) => {
-      const cats = p.categorySlugs ?? [p.categorySlug]; // 👈 soporte mixto
+      const cats = p.categorySlugs; // 👈 soporte mixto
 
       cats.forEach((slug) => {
         counts[slug] = (counts[slug] || 0) + 1;

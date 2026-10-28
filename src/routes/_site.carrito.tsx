@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus, X, ShoppingBag } from "lucide-react";
 import { useCart, useProducts } from "@/lib/store";
 import { effectivePrice, formatCL } from "@/lib/mock-data";
+import { resolveProduct, cartItemKey } from "@/lib/product-variants";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_site/carrito")({
@@ -14,12 +15,11 @@ function CartPage() {
 
   const lines = items
     .map((i) => {
-      const product = products.find((p) => p.id === i.productId);
-      return product ? { product, quantity: i.quantity } : null;
+      const base = products.find((p) => p.id === i.productId);
+      const product = base && resolveProduct(base, i.variantSku);
+      return product ? { product, quantity: i.quantity, variantSku: i.variantSku } : null;
     })
-    .filter(
-      (x): x is { product: NonNullable<ReturnType<typeof products.find>>; quantity: number } => !!x,
-    );
+    .filter((line) => line !== null);
 
   const subtotal = lines.reduce((sum, l) => sum + effectivePrice(l.product) * l.quantity, 0);
   const savings = lines.reduce(
@@ -51,7 +51,10 @@ function CartPage() {
       <div className="grid gap-10 lg:grid-cols-[1fr_380px]">
         <ul className="divide-y divide-border border-y border-border">
           {lines.map((l) => (
-            <li key={l.product.id} className="flex gap-4 py-6">
+            <li
+              key={cartItemKey({ productId: l.product.id, variantSku: l.variantSku })}
+              className="flex gap-4 py-6"
+            >
               <Link
                 to="/producto/$slug"
                 params={{ slug: l.product.slug }}
@@ -77,7 +80,7 @@ function CartPage() {
                     <p className="text-xs text-muted-foreground">SKU: {l.product.sku}</p>
                   </div>
                   <button
-                    onClick={() => remove(l.product.id)}
+                    onClick={() => remove(l.product.id, l.variantSku)}
                     className="text-muted-foreground hover:text-foreground"
                     aria-label="Eliminar"
                   >
@@ -87,7 +90,7 @@ function CartPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center rounded-md border border-border">
                     <button
-                      onClick={() => setQty(l.product.id, l.quantity - 1)}
+                      onClick={() => setQty(l.product.id, l.quantity - 1, l.variantSku)}
                       className="grid h-9 w-9 place-items-center hover:bg-secondary"
                       aria-label="Disminuir"
                     >
@@ -95,7 +98,7 @@ function CartPage() {
                     </button>
                     <span className="w-8 text-center text-sm">{l.quantity}</span>
                     <button
-                      onClick={() => setQty(l.product.id, l.quantity + 1)}
+                      onClick={() => setQty(l.product.id, l.quantity + 1, l.variantSku)}
                       disabled={l.quantity >= l.product.stock}
                       className="grid h-9 w-9 place-items-center hover:bg-secondary disabled:opacity-40"
                     >
@@ -147,6 +150,8 @@ function CartPage() {
                   (l) =>
                     `• ${l.product.name}
   SKU: ${l.product.sku}
+  Material: ${l.product.material}
+  Dimensiones: ${l.product.dimensions}
   Cantidad: ${l.quantity}
   Subtotal: ${formatCL(effectivePrice(l.product) * l.quantity)}.-`,
                 )

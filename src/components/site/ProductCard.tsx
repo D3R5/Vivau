@@ -1,11 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { Eye } from "lucide-react";
 import { type Product, discountPct, effectivePrice, formatCL } from "@/lib/mock-data";
+import { productOptions } from "@/lib/product-variants";
 import { Button } from "@/components/ui/button";
 
 export function ProductCard({ product }: { product: Product }) {
-  const pct = discountPct(product);
-  const price = effectivePrice(product);
+  const options = productOptions(product);
+  const cheapest = options.reduce((best, option) =>
+    effectivePrice(option) < effectivePrice(best) ? option : best,
+  );
+  const pct = discountPct(cheapest);
+  const price = effectivePrice(cheapest);
+  const hasVariants = Boolean(product.variants?.length);
 
   return (
     <div className="group flex flex-col">
@@ -25,7 +31,7 @@ export function ProductCard({ product }: { product: Product }) {
             −{pct}%
           </span>
         )}
-        {product.stock === 0 && (
+        {options.every((option) => option.stock === 0) && (
           <span className="absolute right-3 top-3 rounded-full bg-background/90 px-2.5 py-1 text-[11px] font-medium">
             Agotado
           </span>
@@ -46,10 +52,13 @@ export function ProductCard({ product }: { product: Product }) {
         </Link>
         <p className="text-xs text-muted-foreground">{product.shortDescription}</p>
         <div className="mt-1.5 flex items-baseline gap-2">
-          <span className="text-base font-medium">{formatCL(price)}</span>
-          {product.salePrice && (
+          <span className="text-base font-medium">
+            {hasVariants ? "Desde " : ""}
+            {formatCL(price)}
+          </span>
+          {cheapest.salePrice && (
             <span className="text-xs text-muted-foreground line-through">
-              {formatCL(product.price)}
+              {formatCL(cheapest.price)}
             </span>
           )}
         </div>

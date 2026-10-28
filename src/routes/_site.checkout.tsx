@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate, redirect } from "@tanstack/react-router";
 import { useState } from "react";
 import { useCart, useProducts } from "@/lib/store";
 import { effectivePrice, formatCL } from "@/lib/mock-data";
+import { resolveProduct, cartItemKey } from "@/lib/product-variants";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,12 +25,11 @@ function CheckoutPage() {
 
   const lines = items
     .map((i) => {
-      const p = products.find((pr) => pr.id === i.productId);
-      return p ? { p, quantity: i.quantity } : null;
+      const base = products.find((pr) => pr.id === i.productId);
+      const p = base && resolveProduct(base, i.variantSku);
+      return p ? { p, quantity: i.quantity, variantSku: i.variantSku } : null;
     })
-    .filter(
-      (x): x is { p: NonNullable<ReturnType<typeof products.find>>; quantity: number } => !!x,
-    );
+    .filter((line) => line !== null);
 
   const subtotal = lines.reduce((sum, l) => sum + effectivePrice(l.p) * l.quantity, 0);
   const shipping = subtotal > 15000 || subtotal === 0 ? 0 : 899;
@@ -127,7 +127,10 @@ function CheckoutPage() {
           <h2 className="font-display text-xl">Tu pedido</h2>
           <ul className="mt-4 divide-y divide-border">
             {lines.map((l) => (
-              <li key={l.p.id} className="flex gap-3 py-3">
+              <li
+                key={cartItemKey({ productId: l.p.id, variantSku: l.variantSku })}
+                className="flex gap-3 py-3"
+              >
                 <img src={l.p.image} alt="" className="h-14 w-14 rounded object-cover" />
                 <div className="flex-1 text-sm">
                   <p className="font-medium leading-tight">{l.p.name}</p>
