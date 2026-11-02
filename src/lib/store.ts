@@ -1,7 +1,8 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { createJSONStorage, persist } from "zustand/middleware";
 import { products as seedProducts, type Product } from "./mock-data";
 import { cartItemKey, resolveProduct } from "./product-variants";
+import { createBrowserStorage } from "./browser-storage";
 
 // ---------- Cart ----------
 export type CartItem = { productId: string; variantSku?: string; quantity: number };
@@ -58,6 +59,7 @@ export const useCart = create<CartState>()(
     }),
     {
       name: "vivau-cart",
+      storage: createJSONStorage(() => createBrowserStorage()),
       version: 2,
       migrate: (persisted) => {
         const state = persisted as { items?: CartItem[] };
@@ -114,6 +116,7 @@ export const useProducts = create<ProductsState>()(
     }),
     {
       name: "vivau-products",
+      storage: createJSONStorage(() => createBrowserStorage()),
       version: 3,
       migrate: (persisted) => {
         const state = persisted as Partial<ProductsState>;

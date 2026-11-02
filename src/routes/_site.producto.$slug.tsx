@@ -39,6 +39,7 @@ function ProductDetail({ baseProduct, products }: { baseProduct: Product; produc
   const product = resolveProduct(baseProduct, selectedSku)!;
   const add = useCart((s) => s.add);
   const [qty, setQty] = useState(1);
+  const [cartFeedback, setCartFeedback] = useState("");
 
   const images = [...new Set([product.image, ...(product.gallery ?? [])])];
 
@@ -57,8 +58,10 @@ function ProductDetail({ baseProduct, products }: { baseProduct: Product; produc
 
   const handleAdd = () => {
     if (add(product.id, qty, selectedSku)) {
+      setCartFeedback(`${product.name} añadido al carrito.`);
       toast.success(`${product.name} añadido al carrito`);
     } else {
+      setCartFeedback("No se pudo agregar: revisa la disponibilidad de esta opción en tu carrito.");
       toast.error("No se pudo agregar: revisa la disponibilidad de esta opción en tu carrito.");
     }
   };
@@ -118,6 +121,7 @@ function ProductDetail({ baseProduct, products }: { baseProduct: Product; produc
                       onChange={() => {
                         setVariantSku(variant.sku);
                         setQty(1);
+                        setCartFeedback("");
                       }}
                       className="sr-only"
                     />
@@ -153,8 +157,8 @@ function ProductDetail({ baseProduct, products }: { baseProduct: Product; produc
             <dd>{product.brand}</dd>
           </dl>
 
-          <div className="mt-8 flex items-center gap-3">
-            <div className="flex items-center rounded-md border border-border">
+          <div className="mt-8 flex min-w-0 flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+            <div className="flex w-fit items-center rounded-md border border-border">
               <button
                 onClick={() => setQty(Math.max(1, qty - 1))}
                 className="grid h-11 w-11 place-items-center hover:bg-secondary"
@@ -172,8 +176,9 @@ function ProductDetail({ baseProduct, products }: { baseProduct: Product; produc
               </button>
             </div>
             <Button
+              type="button"
               size="lg"
-              className="flex-1 gap-2"
+              className="min-h-11 w-full touch-manipulation gap-2 sm:w-auto sm:flex-1"
               disabled={product.stock === 0}
               onClick={handleAdd}
             >
@@ -181,6 +186,10 @@ function ProductDetail({ baseProduct, products }: { baseProduct: Product; produc
               {product.stock === 0 ? "Agotado" : "Añadir al carrito"}
             </Button>
           </div>
+
+          <p role="status" aria-live="polite" className="mt-3 text-sm leading-relaxed text-primary">
+            {cartFeedback}
+          </p>
 
           <div className="mt-8 grid grid-cols-2 gap-4 text-sm">
             <div className="flex items-start gap-3 rounded-md bg-secondary/50 p-4">

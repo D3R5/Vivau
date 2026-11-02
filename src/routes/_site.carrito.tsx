@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Minus, Plus, X, ShoppingBag } from "lucide-react";
 import { useCart, useProducts } from "@/lib/store";
 import { effectivePrice, formatCL } from "@/lib/mock-data";
@@ -10,6 +10,7 @@ export const Route = createFileRoute("/_site/carrito")({
 });
 
 function CartPage() {
+  const navigate = useNavigate();
   const { items, setQty, remove } = useCart();
   const products = useProducts((s) => s.products);
 
@@ -159,7 +160,7 @@ function CartPage() {
 
               const fullMessage = `Hola, quiero cotizar:\n\n${message}\n\nTotal estimado: ${formatCL(total)}.-\n\nAgrega tu dirección para coordinar el envío:\n\nNúmero de contacto:\n\nGracias.`;
 
-              window.location.href = `/contactoemail?message=${encodeURIComponent(fullMessage)}`;
+              navigate({ to: "/contactoemail", search: { message: fullMessage } });
             }}
           >
             Solicitar cotización

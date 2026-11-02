@@ -25,6 +25,7 @@ function loadSource(file, dependencies = {}, expose = "") {
 }
 
 const variants = loadSource("src/lib/product-variants.ts");
+const browserStorage = loadSource("src/lib/browser-storage.ts");
 const chair = {
   id: "chair",
   name: "Silla de Raulí",
@@ -65,6 +66,7 @@ global.window = { localStorage: globalThis.localStorage };
 const { useCart, useProducts } = loadSource("src/lib/store.ts", {
   "./mock-data": { products: [chair, plain] },
   "./product-variants": variants,
+  "./browser-storage": browserStorage,
 });
 
 beforeEach(() => {
@@ -238,6 +240,7 @@ test("bed listings consolidate into two sizes and migrate existing catalog and c
   const stores = loadSource("src/lib/store.ts", {
     "./mock-data": { products: catalog },
     "./product-variants": variants,
+    "./browser-storage": browserStorage,
   });
   const oldBase = { ...bed, variants: undefined, stock: 2, image: "2p.jpg", gallery: ["2p.jpg"] };
   const oldKing = { ...oldBase, id: "p-026", stock: 3, image: "king.jpg", gallery: ["king.jpg"] };
@@ -277,4 +280,77 @@ test("bed listings consolidate into two sizes and migrate existing catalog and c
     return sum + option.price * item.quantity;
   }, 0);
   assert.equal(total, 469970);
+});
+
+test("a restricted mobile browser can add, update and remove products without storage exceptions", () => {
+  const originalWindow = global.window;
+  const deniedStorage = {
+    getItem() {
+      throw new Error("SecurityError");
+    },
+    setItem() {
+      throw new Error("QuotaExceededError");
+    },
+    removeItem() {
+      throw new Error("SecurityError");
+    },
+  };
+  try {
+    global.window = { localStorage: deniedStorage, sessionStorage: deniedStorage };
+    const stores = loadSource("src/lib/store.ts", {
+      "./mock-data": { products: [chair, plain] },
+      "./product-variants": variants,
+      "./browser-storage": browserStorage,
+    });
+    const cart = stores.useCart.getState();
+    assert.equal(cart.add("table"), true);
+    assert.equal(cart.add("chair", 1, "SIL-T"), true);
+    cart.setQty("chair", 2, "SIL-T");
+    assert.equal(stores.useCart.getState().items.length, 2);
+    assert.equal(stores.useCart.getState().items[1].quantity, 2);
+    cart.remove("table");
+    assert.equal(stores.useCart.getState().items[0].variantSku, "SIL-T");
+    cart.clear();
+    assert.equal(stores.useCart.getState().items.length, 0);
+  } finally {
+    global.window = originalWindow;
+  }
+});
+
+test("session storage retains the latest cart when local storage cannot be written", () => {
+  const originalWindow = global.window;
+  const session = new Map();
+  try {
+    global.window = {
+      localStorage: {
+        getItem: () => '{"old":true}',
+        setItem() {
+          throw new Error("QuotaExceededError");
+        },
+      },
+      sessionStorage: {
+        getItem: (key) => session.get(key) ?? null,
+        setItem: (key, value) => session.set(key, value),
+        removeItem: (key) => session.delete(key),
+      },
+    };
+    const storage = browserStorage.createBrowserStorage();
+    storage.setItem("vivau-cart", '{"items":[{"productId":"chair"}]}');
+    const reloaded = browserStorage.createBrowserStorage();
+    assert.deepEqual(JSON.parse(reloaded.getItem("vivau-cart")), {
+      items: [{ productId: "chair" }],
+    });
+  } finally {
+    global.window = originalWindow;
+  }
+});
+
+test("invalid saved JSON does not prevent a fresh cart from hydrating", () => {
+  const originalWindow = global.window;
+  try {
+    global.window = { localStorage: { getItem: () => "{invalid-json" } };
+    assert.equal(browserStorage.createBrowserStorage().getItem("vivau-cart"), null);
+  } finally {
+    global.window = originalWindow;
+  }
 });
