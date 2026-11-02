@@ -208,3 +208,73 @@ test("product detail button adds the selected variant and reports success only w
   assert.equal(messages[1].kind, "error");
   assert.equal(useCart.getState().items[0].quantity, 3);
 });
+
+test("bed listings consolidate into two sizes and migrate existing catalog and cart", () => {
+  const { products: catalog } = loadSource("src/lib/mock-data.ts", {
+    "./images": {
+      images: new Proxy(
+        {},
+        {
+          get: (_, key) => ({ cover: `${String(key)}.jpg`, gallery: [`${String(key)}.jpg`] }),
+        },
+      ),
+    },
+  });
+  const bed = catalog.find((product) => product.id === "p-025");
+  assert.equal(
+    catalog.some((product) => product.id === "p-026"),
+    false,
+  );
+  assert.deepEqual(bed.categorySlugs, ["recamara"]);
+  assert.match(bed.name, /Solo base/);
+  assert.deepEqual(
+    bed.variants.map((variant) => [variant.name, variant.price]),
+    [
+      ["2 plazas", 149990],
+      ["King", 159990],
+    ],
+  );
+  memory.clear();
+  const stores = loadSource("src/lib/store.ts", {
+    "./mock-data": { products: catalog },
+    "./product-variants": variants,
+  });
+  const oldBase = { ...bed, variants: undefined, stock: 2, image: "2p.jpg", gallery: ["2p.jpg"] };
+  const oldKing = { ...oldBase, id: "p-026", stock: 3, image: "king.jpg", gallery: ["king.jpg"] };
+  const migrated = stores.useProducts.persist
+    .getOptions()
+    .migrate({ products: [oldBase, oldKing, plain] }, 2);
+  const beds = migrated.products.filter((product) => ["p-025", "p-026"].includes(product.id));
+  assert.equal(beds.length, 1);
+  assert.deepEqual(
+    beds[0].variants.map((variant) => variant.stock),
+    [2, 3],
+  );
+  assert.deepEqual(
+    beds[0].variants.map((variant) => variant.image),
+    ["2p.jpg", "king.jpg"],
+  );
+  const cart = stores.useCart.persist.getOptions().migrate(
+    {
+      items: [
+        { productId: "p-025", quantity: 1 },
+        { productId: "p-026", quantity: 2 },
+        { productId: "p-025", variantSku: "BC-026-K", quantity: 1 },
+      ],
+    },
+    1,
+  );
+  assert.deepEqual(cart.items, [
+    { productId: "p-025", quantity: 1, variantSku: "BC-025-2P" },
+    { productId: "p-025", quantity: 3, variantSku: "BC-026-K" },
+  ]);
+  stores.useProducts.setState(migrated);
+  stores.useCart.getState().clear();
+  assert.equal(stores.useCart.getState().add("p-025", 1, "BC-025-2P"), true);
+  assert.equal(stores.useCart.getState().add("p-025", 2, "BC-026-K"), true);
+  const total = stores.useCart.getState().items.reduce((sum, item) => {
+    const option = variants.resolveProduct(beds[0], item.variantSku);
+    return sum + option.price * item.quantity;
+  }, 0);
+  assert.equal(total, 469970);
+});

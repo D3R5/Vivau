@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { products as seedProducts, type Product } from "./mock-data";
-import { resolveProduct } from "./product-variants";
+import { cartItemKey, resolveProduct } from "./product-variants";
 
 // ---------- Cart ----------
 export type CartItem = { productId: string; variantSku?: string; quantity: number };
@@ -58,17 +58,27 @@ export const useCart = create<CartState>()(
     }),
     {
       name: "vivau-cart",
-      version: 1,
+      version: 2,
       migrate: (persisted) => {
         const state = persisted as { items?: CartItem[] };
-        return {
-          items: (state.items ?? []).map((item) => ({
+        const migrated = (state.items ?? []).map((item) => {
+          if (item.productId === "p-026") {
+            return { ...item, productId: "p-025", variantSku: "BC-026-K" };
+          }
+          return {
             ...item,
             variantSku:
               item.variantSku ??
               seedProducts.find((product) => product.id === item.productId)?.variants?.[0]?.sku,
-          })),
-        };
+          };
+        });
+        const items: CartItem[] = [];
+        for (const item of migrated) {
+          const existing = items.find((line) => cartItemKey(line) === cartItemKey(item));
+          if (existing) existing.quantity += item.quantity;
+          else items.push(item);
+        }
+        return { items };
       },
     },
   ),
@@ -104,12 +114,42 @@ export const useProducts = create<ProductsState>()(
     }),
     {
       name: "vivau-products",
-      version: 2,
+      version: 3,
       migrate: (persisted) => {
         const state = persisted as Partial<ProductsState>;
+        const previous = state.products ?? seedProducts;
+        const bed = seedProducts.find((product) => product.id === "p-025");
+        const oldBase = previous.find((product) => product.id === "p-025");
+        const oldKing = previous.find((product) => product.id === "p-026");
+        // Consolidate the two former listings, retaining local stock and photos per size.
+        const products =
+          bed && (oldBase || oldKing)
+            ? [
+                ...previous.filter((product) => product.id !== "p-025" && product.id !== "p-026"),
+                {
+                  ...oldBase,
+                  ...bed,
+                  active: oldBase?.active ?? bed.active,
+                  image: oldBase?.image ?? bed.image,
+                  gallery: oldBase?.gallery ?? bed.gallery,
+                  variants: bed.variants?.map((variant) => {
+                    const savedVariant = oldBase?.variants?.find(
+                      (option) => option.sku === variant.sku,
+                    );
+                    const oldProduct = variant.sku === "BC-026-K" ? oldKing : oldBase;
+                    return {
+                      ...variant,
+                      stock: savedVariant?.stock ?? oldProduct?.stock ?? variant.stock,
+                      image: savedVariant?.image ?? oldProduct?.image ?? variant.image,
+                      gallery: savedVariant?.gallery ?? oldProduct?.gallery ?? variant.gallery,
+                    };
+                  }),
+                },
+              ]
+            : previous;
         return {
           ...state,
-          products: (state.products ?? seedProducts).map((product) => {
+          products: products.map((product) => {
             const seed = seedProducts.find((p) => p.id === product.id);
             const variants = product.variants ?? seed?.variants;
             return {

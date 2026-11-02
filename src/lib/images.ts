@@ -75,6 +75,14 @@ import bandeja3 from "../assets/bandeja-madera-1/3.png";
 import sillas from "../assets/silla-1/1.png";
 import sillas2 from "../assets/silla-1/2.png";
 
+import esculturaCanina1 from "../assets/escultura-canina-1/1.jpg";
+import esculturaCanina2 from "../assets/escultura-canina-1/2.jpg";
+
+import baseCama1 from "../assets/base-cama-1/1.png";
+import baseCama2 from "../assets/base-cama-1/2.png";
+
+import velador1 from "../assets/velador-1/1.png";
+
 export const images = {
   mesaCentro: {
     cover: mesa1,
@@ -195,5 +203,17 @@ export const images = {
   sillaTapizada: {
     cover: sillas2,
     gallery: [sillas2],
+  },
+  esculturaCanina: {
+    cover: esculturaCanina1,
+    gallery: [esculturaCanina1, esculturaCanina2],
+  },
+  baseCama: {
+    cover: baseCama1,
+    gallery: [baseCama1, baseCama2],
+  },
+  velador: {
+    cover: velador1,
+    gallery: [velador1],
   },
 };
