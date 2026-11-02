@@ -100,6 +100,15 @@ export function Footer() {
           <p>© {new Date().getFullYear()} Muebles VIVAU.</p>
           <p>Todos los derechos reservados.</p>
         </div>
+        <p className="pb-6 pr-16 text-[11px] leading-relaxed text-muted-foreground">
+          Desarrollado por{" "}
+          <a
+            href="https://www.ders.cl/"
+            className="rounded-sm font-medium text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none"
+          >
+            DERS
+          </a>
+        </p>
       </div>
     </footer>
   );
